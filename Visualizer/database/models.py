@@ -1,4 +1,4 @@
-from django.db import models
+Person_namefrom django.db import models
 
 import uuid
 
