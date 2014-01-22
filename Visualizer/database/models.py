@@ -27,7 +27,7 @@ class Session( models.Model ): # WHY NOT MERGING DATASET AND SESSION TABLES TOGE
 
 class Person( models.Model ):
     id_person      = models.IntegerField(primary_key=True)
-   # name          = models.CharField( max_length = 40, null = True )
+    id_name        = models.ForeignKey( Person_name )
     id_source      = models.ForeignKey( Source )
     id_session     = models.ForeignKey( Session )
     start          = models.DateTimeField( null = True, blank = True )
@@ -64,7 +64,7 @@ class Person( models.Model ):
 class Person_img( models.Model ):
     id_img          = models.IntegerField(primary_key=True)
     id_person       = models.ForeignKey( Person, null = True )
-    #source          = models.ForeignKey( Source )
+    id_source       = models.ForeignKey( Source )
     timestamp       = models.DateTimeField( auto_now_add = True )
     frame           = models.PositiveIntegerField( default = 0 ) # Ordinal number. 0 means not part of a sequence (single frame)
     age             = models.PositiveSmallIntegerField()
@@ -92,3 +92,8 @@ class Person_img( models.Model ):
     ClothesColors_2         = models.CharField( max_length = 6, null = True )
     ClothesColors_3         = models.CharField( max_length = 6, null = True )
 
+class Person_name( models.Model ):
+    id_name          = models.IntegerField(primary_key=True)
+    first_name       = models.CharField( max_length = 40, null = True )
+    last_name        = models.CharField( max_length = 40, null = True )
+    birthdate        = models.DateTimeField( null = True, blank = True )
