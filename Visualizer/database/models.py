@@ -24,6 +24,9 @@ class Session( models.Model ): # WHY NOT MERGING DATASET AND SESSION TABLES TOGE
     dataset     = models.ForeignKey( Dataset, null = True )
     start_time  = models.DateTimeField( null = True, blank = True )
     end_time    = models.DateTimeField( null = True, blank = True )
+    
+class Person_name( models.Model ):
+    id_name          = models.IntegerField(primary_key=True)
 
 class Person( models.Model ):
     id_person      = models.IntegerField(primary_key=True)
@@ -92,8 +95,3 @@ class Person_img( models.Model ):
     ClothesColors_2         = models.CharField( max_length = 6, null = True )
     ClothesColors_3         = models.CharField( max_length = 6, null = True )
 
-class Person_name( models.Model ):
-    id_name          = models.IntegerField(primary_key=True)
-    first_name       = models.CharField( max_length = 40, null = True )
-    last_name        = models.CharField( max_length = 40, null = True )
-    birthdate        = models.DateTimeField( null = True, blank = True )
