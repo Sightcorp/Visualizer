@@ -1,0 +1,92 @@
+﻿README file for the CrowdSight-SDK Linux
+=======================================
+
+These instructions are for Ubuntu build of CrowdSight:
+
+* Run the SDK installer using sudo command
+    
+    sudo ./CrowdSight-SDK-Linux-<version>.bin
+
+* Follow this guide to install opencv 2.4.5 :
+
+    http://www.ozbotz.org/opencv-installation/
+
+* Use qmake to compile the example :
+
+    cd /usr/local/crowdsight/example
+    make
+    ./example
+
+* The last command prints the required parameters of the example program:
+
+Usage: ./example <videofile> <data dir> <resources dir> <auth key>
+       ./example --capture <frame-id> <data dir> <resources dir> <auth key>
+
+Using a video as input:
+  <videofile>     A video file
+  <data dir>      Default location is /usr/local/crowdsight/data/
+  <resources dir> Default location is /usr/local/crowdsight/resources/
+  <auth key>      Your crowdsight license key
+
+Using a webcam as input:
+  <frame-id>      ID of the webcam to be used, most of the time should be zero
+  <data dir>      Default location is /usr/local/crowdsight/data/
+  <resources dir> Default location is /usr/local/crowdsight/resources/
+  <auth key>      Your crowdsight license key
+
+
+Example usages: 
+
+    ./example testmovie.avi /usr/local/crowdsight/data/ /usr/local/crowdsight/resources/ mycrowdsightlicensekey
+    ./example --capture 0 /usr/local/crowdsight/data/ /usr/local/crowdsight/resources/ mycrowdsightlicensekey
+
+
+
+
+Trouble Shooting:
+
+    OpenCV compilation errors:
+    
+    Problem:
+        “Linking CXX shared library ../../lib/libopencv_highgui.so
+        /usr/bin/ld: /usr/local/lib/libavcodec.a(avpacket.o): relocation R_X86_64_32S against `av_destruct_packet_nofree’ can not be used when making a shared object; recompile with -fPIC
+        /usr/local/lib/libavcodec.a: could not read symbols: Bad value
+        collect2: ld returned 1 exit status
+        make[2]: *** [lib/libopencv_highgui.so.2.4.2] Error 1
+        make[1]: *** [modules/highgui/CMakeFiles/opencv_highgui.dir/all] Error 2
+
+    Solution:
+        In the x264 source folder type:
+        
+        sudo make uninstall
+        make clean
+        ./configure --enable-shared --enable-pic
+        make
+        sudo make install
+
+        In the ffmpeg source folder type:
+        
+        sudo make uninstall
+        make clean
+        ./configure --enable-gpl --enable-libfaac --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --enable-nonfree --enable-postproc --enable-version3 --enable-x11grab --enable-shared --enable-pic
+        make
+        sudo make install
+
+        Proceed with compiling and installing OpenCV
+
+Example Project Overview:
+  The example project is split up in several files:
+  * main          : mainly initializing necessary objects and parsing the command line arguments.
+  * main_loop     : CrowdSight processing main loop. This class initializes and handles CrowdSight
+					core operations. After CrowdSight initialization, MainLoop::run() grabs input
+					frames, processes those and present the result of each frame analysis to the
+					Visualization class, in the form of a vector of Person objects.
+  * visualization : all drawing related functions are collected here. The function Visualization::drawPerson
+					demonstrates how to retrieve the demographics of a single person and how to draw them
+					to the frame.
+
+Support email:
+
+If you have any questions, please contact us at
+
+support@sightcorp.com
