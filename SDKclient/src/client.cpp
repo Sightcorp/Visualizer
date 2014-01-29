@@ -6,7 +6,7 @@
 
 const std::string Client::KServerURL       = "http://localhost:8000";
 const std::string Client::KStartSessionURL = "/start_session/";
-const std::string Client::KSendPersonURL   = "/detection/";
+const std::string Client::KSendPersonURL   = "/person_detection/";
 const std::string Client::KStopSessionURL  = "/stop_session/";
 
 
@@ -41,7 +41,7 @@ bool parseGenericResponse( const std::string &          jsonText,
 {
   if( !JsonParser::parseJson( jsonText, jsonMembers ) )
   {
-    std::cerr << "Bad server response format" << std::endl;
+    std::cerr << "Bad server response format : " << jsonText << std::endl;
     return false;
   }
 
@@ -50,6 +50,13 @@ bool parseGenericResponse( const std::string &          jsonText,
   {
     std::cerr << "Bad server response format. Missing 'code'." << std::endl;
     return false;
+  }
+
+  if( code != 0 )
+  {
+    std::string tmpDescription;
+    if( getJsonParam( jsonMembers, "code", tmpDescription ) )
+      std::cerr << "Server error description : " << tmpDescriprion << std::endl;
   }
   return code == 0;
 }
@@ -151,7 +158,7 @@ bool Client::sendPeople( std::vector<Person> &people, int frameNumber )
       std::cerr << "No ID on this person... Skip (tmp)" << std::endl;
       continue;
     }
-    sendPersonRequest[ "person_id" ]      = tmpID;
+    sendPersonRequest[ "sdk_name" ]       = tmpID;
     sendPersonRequest[ "age" ]            = Util::getStringFromValue( person_it->getAge() );
     sendPersonRequest[ "gender" ]         = Util::getStringFromValue( person_it->getGender() );
     sendPersonRequest[ "mood" ]           = Util::getStringFromValue( person_it->getMood() );
@@ -215,7 +222,7 @@ bool Client::parseStartSession( const std::string & response )
   if( !parseGenericResponse( response, jsonMembers ) )
     return false;
 
-  if( !getJsonParam( jsonMembers, "key", mSessionKey ) )
+  if( !getJsonParam( jsonMembers, "session_key", mSessionKey ) )
   {
     std::cerr << "Bad response formatting. Expecting session key." << std::endl;
     return false;

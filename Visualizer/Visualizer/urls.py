@@ -5,6 +5,10 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^start_session/$', 'processing.views.start_session'),
+    url(r'^stop_session/$', 'processing.views.stop_session'),
+    url(r'^person_detection/$', 'processing.views.person_detection'),
+    url(r'^trigger_processing/$', 'processing.views.trigger_processing'),
     # Examples:
     # url(r'^$', 'Visualizer.views.home', name='home'),
     # url(r'^Visualizer/', include('Visualizer.foo.urls')),

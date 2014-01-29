@@ -15,6 +15,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "visualization.h"
+#include "client.h"
 
 class CrowdSight;
 
@@ -73,6 +74,7 @@ private:
 
   MainLoopArguments mArgs;
   CrowdSight * mCrowdSight;
+  Client     * mClient;
   cv::VideoCapture mCap;
   cv::Mat mFrame;
   Visualization * mVisualization;

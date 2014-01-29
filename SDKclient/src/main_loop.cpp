@@ -4,13 +4,13 @@
 
 #include <crowdsight.h>
 
-MainLoop::MainLoop() : mCrowdSight( NULL ), mVisualization( NULL )
+MainLoop::MainLoop() : mCrowdSight( NULL ), mClient( NULL ), mVisualization( NULL )
 {
   init();
 }
 
 
-MainLoop::MainLoop( MainLoopArguments a ) : mArgs( a ), mCrowdSight( NULL ), mVisualization( NULL )
+MainLoop::MainLoop( MainLoopArguments a ) : mArgs( a ), mCrowdSight( NULL ), mClient( NULL ), mVisualization( NULL )
 {
   init();
 }
@@ -22,6 +22,8 @@ MainLoop::~MainLoop()
   mVisualization = NULL;
   delete mCrowdSight;
   mCrowdSight = NULL;
+  delete mClient;
+  mClient = NULL;
 }
 
 
@@ -55,6 +57,7 @@ void MainLoop::init()
 int MainLoop::run()
 {
   char key = -1;
+  int  frameCounter = 1;
   
   while(true)
   {
@@ -63,6 +66,11 @@ int MainLoop::run()
     {
       mCrowdSight = new CrowdSight( mArgs.dataDirPath );
       mCrowdSight->useFastDetection( true );
+    }
+
+    if( mClient == NULL )
+    {
+      mClient = new Client( mArgs.cameraName );
     }
 
     // Authenticate CrowdSight
@@ -97,6 +105,12 @@ int MainLoop::run()
 
     // Visualize retrieved information (and check for keyboard input)
     key = mVisualization->drawPeople(mCrowdSight, people, mFrame );
+
+    // Send people detection to Visualization server
+    bool sent = mClient->sendPeople( people, frameCounter );
+    ++frameCounter;
+    if( !sent )
+      std::cerr << "Could not send people to Visualization server." << std::endl;
 
     // Quit if ESC or q was pressed
     if( key == 27 || key == 'q' || key == 'Q' )

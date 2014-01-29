@@ -9,12 +9,12 @@ def generate_hash():
 
 class Source( models.Model ):
     id_source   = models.IntegerField(primary_key=True)
-    label       = models.CharField( max_length = 80 )
+    label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
 class Dataset( models.Model ):
     id_dataset  = models.IntegerField(primary_key=True)
-    label       = models.CharField( max_length = 80 )
+    label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
 class Session( models.Model ): # WHY NOT MERGING DATASET AND SESSION TABLES TOGETHER?
@@ -25,13 +25,9 @@ class Session( models.Model ): # WHY NOT MERGING DATASET AND SESSION TABLES TOGE
     start_time  = models.DateTimeField( null = True, blank = True )
     end_time    = models.DateTimeField( null = True, blank = True )
     
-class Person_name( models.Model ):
-    id_name    = models.IntegerField(primary_key=True)
-    model_name = models.CharField( max_length = 30 )
-
 class Person( models.Model ):
     id_person      = models.IntegerField(primary_key=True)
-    id_name        = models.ForeignKey( Person_name )
+    sdk_name       = models.CharField( max_length = 30 )
     id_source      = models.ForeignKey( Source )
     id_session     = models.ForeignKey( Session )
     start          = models.DateTimeField( null = True, blank = True )
@@ -65,10 +61,47 @@ class Person( models.Model ):
     color_2        = models.CharField( max_length = 6, null = True )
     color_3        = models.CharField( max_length = 6, null = True )
 
+    def compute_averages( self ):
+        person_detections = self.person_img_set.all()
+        count = len( person_detections )
+        average_fn = lambda arr, member, count : sum( [ getattr( x, member ) for x in arr ] ) / ( float )( count )
+        std_dev_fn = lambda arr, member, avg, count : ( sum( [ ( getattr( x, member ) - avg )  ** 2 for x in arr ] ) / ( float )( count ) ) ** 0.5
+
+        self.gender_av      = average_fn( person_detections, "gender", count )
+        self.gender_sd      = average_fn( person_detections, "gender", count, self.gender_av )
+        self.age_av         = average_fn( person_detections, "age", count )
+        self.age_sd         = average_fn( person_detections, "age", count, self.age_av )
+
+        self.mood_av        = average_fn( person_detections, "mood", count )
+        self.mood_sd        = average_fn( person_detections, "mood", count, self.mood_av )
+        #self.gaze_x_av      = average_fn( person_detections, "bbb", count )
+        #self.gaze_x_sd      = average_fn( person_detections, "bbb", count, self.gaze_x_av )
+        #self.gaze_y_av      = average_fn( person_detections, "bbb", count )
+        #self.gaze_y_sd      = average_fn( person_detections, "bbb", count, self.gaze_y_av )
+        #self.attention_span = average_fn( person_detections, "bbb", count, ddd )
+
+        self.neutral_av     = average_fn( person_detections, "neutral", count )
+        self.neutral_sd     = average_fn( person_detections, "neutral", count, self.neutral_av )
+        self.happy_av       = average_fn( person_detections, "happy", count )
+        self.happy_sd       = average_fn( person_detections, "happy", count, self.happy_av )
+        self.surprised_av   = average_fn( person_detections, "surprised", count )
+        self.surprised_sd   = average_fn( person_detections, "surprised", count, self.surprised_av )
+        self.angry_av       = average_fn( person_detections, "angry", count )
+        self.angry_sd       = average_fn( person_detections, "angry", count, self.angry_av )
+        self.disgusted_av   = average_fn( person_detections, "disgusted", count )
+        self.disgusted_sd   = average_fn( person_detections, "disgusted", count, self.disgusted_av )
+        self.afraid_av      = average_fn( person_detections, "afraid", count )
+        self.afraid_sd      = average_fn( person_detections, "afraid", count, self.afraid_av )
+        self.sad_av         = average_fn( person_detections, "sad", count )
+        self.sad_sd         = average_fn( person_detections, "sad", count, self.sad_av )
+
+        #self.color_1        = average_fn( person_detections, "bbb", count, ddd )
+        #self.color_2        = average_fn( person_detections, "bbb", count, ddd )
+        #self.color_3        = average_fn( person_detections, "bbb", count, ddd )
+
 class Person_img( models.Model ):
     id_img          = models.IntegerField(primary_key=True)
     id_person       = models.ForeignKey( Person, null = True )
-    id_source       = models.ForeignKey( Source )
     timestamp       = models.DateTimeField( auto_now_add = True )
     frame           = models.PositiveIntegerField( default = 0 ) # Ordinal number. 0 means not part of a sequence (single frame)
     age             = models.PositiveSmallIntegerField()
@@ -93,7 +126,7 @@ class Person_img( models.Model ):
     disgusted       = models.PositiveSmallIntegerField()
     afraid          = models.PositiveSmallIntegerField()
     sad             = models.PositiveSmallIntegerField()
-    ClothesColors_1         = models.CharField( max_length = 6, null = True )
-    ClothesColors_2         = models.CharField( max_length = 6, null = True )
-    ClothesColors_3         = models.CharField( max_length = 6, null = True )
+    ClothesColors_1 = models.CharField( max_length = 6, null = True, blank = True )
+    ClothesColors_2 = models.CharField( max_length = 6, null = True, blank = True )
+    ClothesColors_3 = models.CharField( max_length = 6, null = True, blank = True )
 
