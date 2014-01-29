@@ -1,0 +1,10 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="account"> 
+{% trans "Thanks you!  Goodbye!" %}
+<a href="{% url auth_login %}">{% trans "Back to log in" %}</a>
+</div>
+
+{% endblock %}

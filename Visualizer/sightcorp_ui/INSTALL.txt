@@ -1,0 +1,52 @@
+1. Repository 
+
+We use mercurial: http://mercurial.selenic.com/
+
+In your home directory, create a file: ~/.hgrc, which contains at least the following lines:
+
+[ui]
+username=$fistname $lastname <$your_email_address>
+verbose=True
+editor=$your_favorite_editor
+
+To clone the repository:
+$ hg clone -v ssh://<username>@ec2.ins.cwi.nl//home/f4k/hg/django_ui/
+
+NOTE: for restrictions reason we are not using the original repository anymore:
+$ hg clone -v ssh://<username>@turin.ins.cwi.nl//home/he/workspace/f4k/django_ui/
+
+
+2. Prerequisites before being able to run the application:
+
+Make sure you have Python installed (=> 2.7) and Pip (Python package management system).
+
+Then install the following packages:
+Django:
+  $ pip install Django==1.4.5
+Django registration module:
+  $ pip install django-registration==0.8
+Python MySQL driver:
+  $ pip install mysql-python
+
+
+3. Database
+
+Edit the django_ui/settings.py and change section DATABASE configuring it properly to connect to your local database.
+
+If you do not have a local MySql running you need a tunnel.
+The following command opens a tunnel to have access to our database at EC2:
+$ ssh -L 3307:localhost:3306 $yourusername@ec2.ins.cwi.nl
+
+If you use the tunnel you can configure in the django_ui/settings.py to connect to 127.0.0.1 port 3307.
+
+
+3.a Initialize database for the registration module
+
+If you run your own local MySql run the following command to create all the tables related with the registration module:
+$ python manage.py syncdb
+
+
+4. Run the application
+
+You can run locally the UI using the django development server:
+$ python manage.py runserver

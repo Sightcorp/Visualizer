@@ -1,0 +1,28 @@
+{% extends "ui_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="text/javascript">
+        var viz_data_url = '{{ viz_data_url|escapejs }}';
+        var filter_data_url = '{{ filter_data_url|escapejs }}';
+        var user_report = '{{ user_report|escapejs }}';
+    </script>
+    <script src="{% static "js/controller/viz.js" %}" ></script>
+    <script src="{% static "js/charts/line.js" %}" ></script>
+    <script src="{% static "js/charts/stack.js" %}" ></script>
+    <script src="{% static "js/lib/d3/box.js" %}" ></script>
+    <script src="{% static "js/charts/box.js" %}" ></script>
+    <script src="{% static "js/controller/dimension.js" %}" ></script>
+    <script src="{% static "js/controller/filter.js" %}" ></script>
+    <script src="{% static "js/charts/bar.js" %}" ></script>
+    <script src="{% static "js/controller/report.js" %}" ></script>
+{% endblock %}
+
+{% block zoneb_content %}
+    <div id="main_chart"></div>
+    <div id="tooltip" class="hidden">
+        <span id="tooltip-value"></span><br>
+        <span id="tooltip-detail"></span>
+    </div>
+{% endblock %}

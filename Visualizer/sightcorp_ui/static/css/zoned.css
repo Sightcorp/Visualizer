@@ -1,0 +1,158 @@
+#zoned_videotab_layout #zoned{
+    margin-top:40px;
+}
+#zoned_videotab_layout .zoned_summary{
+    top: 358px;
+    border-top: 1px solid #333;
+    border-right: 1px solid #333;
+    width: 1000px;
+}
+div.zoned {
+    overflow-y: visible;
+}
+
+.zoned_summary {
+    float: left;
+    padding: 0px;
+    padding-left:10px;
+    margin-left:30px;
+	border-top: 1px dashed #333;
+    border-bottom: 1px solid #333;
+    border-right: 1px solid #333;/**/
+    border-left: 1px solid #333;
+    /*min-width: 900px;
+    width: 90%;*/
+    width:900px;
+    position: fixed;
+    top: 388px;
+    overflow: hidden;
+    min-height:30px;
+    background: url('../picto/limit_zonec.png') 165px 0px no-repeat  #eee;
+}
+
+div.param_type_area {
+    position: fixed;
+    bottom: 0px;
+    top: 430px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    width: 1050px;
+    overflow: auto;
+}
+
+div.param_div_container {
+    margin-left: 30px;
+    margin-top: 5px;
+    height: 15px;
+    width: 100%;
+}
+
+div.param_div {
+    float: left;
+    font-size: 12px;
+    border: 2px solid #D0D3DD;
+    padding: .2em .5em .2em .2em;
+}
+
+div.zoned_filter_area {
+    margin-top: 15px;
+    margin-left: 80px;
+    margin-right: 10px;
+    /*overflow: auto;
+    height: 250px;*/
+    padding-bottom: 10px;
+}
+
+div.filter_viz {
+    clear: both;
+    float: left;
+    padding: 0 0 0 -20px;
+    margin: 5px 0 0 -35px;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#f_s_legend.filter_viz {
+    clear: none;
+    float: left;
+    /*width: 300px;*/
+    height: 200px;
+    max-width: 800;
+    min-width: 300;
+    padding: 0 0 0 -20px;
+    margin: 0 0 0 -20px;
+    font-weight: normal;
+    font-size: 12px;
+    padding-left: 20px;
+    overflow-x: scroll;
+}
+
+div.filter_box {
+    float: left;
+    border-left: 1px solid #939598;
+    border-right: 1px solid #939598;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    height: 230px;
+}
+
+.filter_name {
+    float: left;
+    min-width: 100px;
+    height: 20px;
+    font-weight: bold;
+    color: #333;
+    padding-left: 12px;
+}
+
+.xaxis_filter {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: none;
+    background: url('../picto/x-axis_small_over.png') 0px 0px no-repeat;
+}
+
+.xaxis_filter_off {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: none;
+    background: url('../picto/x-axis_small.png') 0px 0px no-repeat;
+}
+
+h3.filters-list {
+    padding: 0px;
+    margin: 0px;
+}
+
+ul#filters_area {
+    margin: 0px;
+    padding: 0;
+    list-style-type: none;
+}
+
+li.filters_area {
+    display: inline;
+}
+.cancel_filter{
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url('../picto/close_filter.png') -2px -2px no-repeat;
+    margin-left: 5px;
+    margin-right: 5px;
+	margin-bottom: 2px;
+}
+
+div:hover.cancel_filter {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url('../picto/close_filter_over.png') -2px -2px no-repeat;
+    margin-left: 5px;
+    margin-right: 5px;
+}

@@ -1,0 +1,192 @@
+#report_layout{
+	margin-left:-50px;
+}
+#report_title{
+	/*display: block;*/
+    margin-left: 50px;
+    margin-right: 0px;
+	margin-top: 15px;
+	width:750px;
+	resize:none;
+	font-size: 24px;
+	border: 2px dashed #E6E8FA;
+	text-align:center;
+	vertical-align:center;
+	font-weight:bold;
+}
+.report_item{
+	height:270px;
+	margin-top:30px;
+	margin-left:50px;
+	clear:both;
+}
+.item_title{
+	position:relative;
+	float:left;
+	resize:none;
+	font-size: 14px;
+	/*border: 2px dashed #E6E8FA;*/
+	vertical-align:center;
+	width:95%;
+	border: 1px solid #333;
+	background: #eee;
+}
+/*div.report_wrapper{
+	position:relative;
+	float:right;
+	width:65%
+}
+div.textarea_wrapper{
+	height:230px;
+}*/
+.item_description{
+	position:relative;
+	float: left;
+	margin-left: 50px;
+	margin-top:10px;
+	width: 50%;	
+	resize:none;
+	font-size: 14px;
+	border: 2px dashed #E6E8FA;
+	vertical-align:center;
+	font-style:italic;
+}
+div.report_vis{
+	margin-top:8px;
+	position:relative;
+	float:left;
+	height:175px;
+	width:40%;
+	/*border:1px solid #E6E8FA;*/
+}
+#download_container{
+    text-decoration: blink;
+}
+.download{
+	position:relative;
+	float:left;
+	margin-top: 30px;
+	margin-left: 50px;
+	width:32px;
+	height:36px;
+    display: block;
+    background: url('../picto/download_report.png') 0px 0px no-repeat;
+	padding-left: 37px;
+	color: #999;
+}
+.download:hover{
+    background: url('../picto/download_report_over.png') 0px 0px no-repeat;
+	color:#3399CC;
+}
+#upload{
+}
+.upload{
+	position:relative;
+	float:left;
+	margin-top: 30px;
+	margin-left: 50px;
+	width:32px;
+	height:36px;
+    display: block;
+    background: url('../picto/upload_report.png') 0px 0px no-repeat;
+	padding-left: 37px;
+}
+.upload:hover{
+    background: url('../picto/upload_report_over.png') 0px 0px no-repeat;
+	color:#3399CC;
+}
+.upload input {
+    position: absolute;
+    opacity: 0;
+    z-index: 2;
+    width: 90px;
+    height: 40px;
+    margin-left: -40px;
+}
+#reset_report{
+	float:right;
+	margin-right:13%;
+	margin-top:30px;
+}
+.container:hover span{
+	cursor:pointer;
+}
+.report_btn{
+	position: relative;
+	top: -60px;
+	margin-left: 70px;
+}
+.edit_viz{
+	width:130px;
+	float:left;
+	padding-left: 25px;
+	height:30px;
+    background: url('../picto/edit_vis.png') 0px 8px no-repeat;
+}
+.edit_viz:hover{
+	cursor:pointer;
+    background: url('../picto/edit_vis_over.png') 0px 8px no-repeat;
+	color:#3399CC;
+}
+.remove_item{
+	width:130px;
+	float:left;
+	margin-right:10px;
+	padding-left: 25px;
+	height:30px;
+    background: url('../picto/remove_report.png') 0px 8px no-repeat;
+}
+.remove_item:hover{
+	cursor:pointer;
+    background: url('../picto/remove_report_over.png') 0px 8px no-repeat;
+	color:#3399CC;
+}
+div.attach_video_ana{
+	float:left;
+	margin-top:10px;
+	margin-right:10px;
+	width:20px;
+	height:20px;
+    background: url('../picto/attach_vid_ana.png') 0px 0px no-repeat;
+}
+.container:hover .attach_video_ana{
+	float:left;
+	margin-top:10px;
+	margin-right:10px;
+	width:20px;
+	height:20px;
+	cursor:pointer;
+    background: url('../picto/attach_vid_ana_over.png') 0px 0px no-repeat;
+}
+div.attach_data{
+	float:left;
+	margin-top:10px;
+	margin-right:10px;
+	width:20px;
+	height:20px;
+    background: url('../picto/attach_data.png') 0px 0px no-repeat;
+}
+.container:hover .attach_data{
+	float:left;
+	margin-top:10px;
+	margin-right:10px;
+	width:20px;
+	height:20px;
+	cursor:pointer;
+    background: url('../picto/attach_data_over.png') 0px 0px no-repeat;
+}
+.reset_report{
+	float: left;
+	width:20px;
+	height:20px;
+	margin-right:10px;
+    background: url('../picto/close.png') 0px 0px no-repeat;
+}
+.container:hover .reset_report{
+	float:left;
+	width:20px;
+	height:20px;
+	margin-right:10px;
+	cursor:pointer;
+    background: url('../picto/close_over.png') 0px 0px no-repeat;
+}

@@ -1,0 +1,257 @@
+{% extends "ui_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="text/javascript">
+        var user_query_url = '{{ user_query_url|escapejs }}';
+    </script>
+    <script src="{% static "js/controller/workflow.js" %}"></script>
+    <script src="{% static "js/charts/bar.js" %}"></script>
+{% endblock %}
+
+{% block zoneb_subtabs %}
+    <div class="subtabs-vidana">
+        <div class="subtab" id='overview_tab'>Overview</div>
+        <div class="subtab" id='fish_detection_tab'>Fish Detection</div>
+        <div class="subtab" id='fish_recognition_tab'>Species Recognition</div>
+        <div class="subtab" id='workflow_tab'>Workflow</div>
+    </div>
+{% endblock %}
+
+{% block zoneb_content %}
+    <div id="overview" class="hidden">
+        <img src="{% static "images/2a-VidAna_Overview.png" %}">
+    </div>
+    <div id="fish_detection" class="hidden">
+        <!--div>
+            <span class="header2">Fish Detection Software</span>
+            <select id='fd_software' class="options_analysis">
+                <option value="135">D135 (default)</option>
+                <option value="141">D141</option>
+                <option value="142">D142</option>
+            </select>
+            <span class="header3">Average time to compute:</span>
+            <div id="fd_comput_time"></div>
+        </div-->
+       <div class="fullwidth header3">There are 3 versions of software that can detect fish species.
+        Below are displayed evaluations of errors produced by each sofwtare version.
+        <br />Errors were measured using a ground-truth set of fish which species were manually recognized by experts.
+    </div>
+        <!--div id="fd_performance">
+            <div id="fd_overall_performance">
+                <span class="header2">Overall Performance</span>
+				<div>
+					<div class="header2"><span class="not-detected">12%</span> of the fish are not detected</div>
+					<div class="header2"><span class="correct">85%</span> of the fish are correctly detected</div>
+					<div class="header2"><span class="incorrect">17%</span> non-fish objects are mistaken as fish</div>
+				</div>
+            </div>
+            <div id="fd_performance_video_quality"><span class="header2">Performance over Video Quality</span></div>
+        </div-->
+    <div id="fd_performance">
+        <div class="header1">Performance of Version 135, detailed for each Video Quality</div>
+        <img src="{% static "images/Perf_135.png" %}" height="300px" />
+        <div class="legend-det">
+            Legend:<br/>
+            <div class="legend-item-det">
+                <div id="FP"></div>
+                <div class="header3"><b>FP</b>: Non-fish objects<br />mistaken for fish</div>
+            </div>
+            <div class="legend-item-det">
+                <div id="TP"></div>
+                <div class="header3"><b>TP</b>: Correctly Detected Fish</div>
+            </div>
+            <div class="legend-item-det">
+                <div id="FN"></div>
+                <div class="header3"><b>FN</b>: Undetected Fish</div>
+            </div>
+        </div>
+        <div class="header1">Performance of Version 141, detailed for each Video Quality</div>
+        <img src="{% static "images/Perf_141.png" %}" height="300px" />
+        <div class="legend-det">
+            Legend:<br/>
+            <div class="legend-item-det">
+                <div id="FP"></div>
+                <div class="header3"><b>FP</b>: Non-fish objects<br />mistaken for fish</div>
+            </div>
+            <div class="legend-item-det">
+                <div id="TP"></div>
+                <div class="header3"><b>TP</b>: Correctly Detected Fish</div>
+            </div>
+            <div class="legend-item-det">
+                <div id="FN"></div>
+                <div class="header3"><b>FN</b>: Undetected Fish</div>
+            </div>
+        </div>
+        <div class="header1">Performance of Version 142, detailed for each Video Quality</div>
+        <img src="{% static "images/Perf_142.png" %}" height="300px" />
+        <div class="legend-det">
+            Legend:<br/>
+            <div class="legend-item-det">
+                <div id="FP"></div>
+                <div class="header3"><b>FP</b>: Non-fish objects<br />mistaken for fish</div>
+            </div>
+            <div class="legend-item-det">
+                <div id="TP"></div>
+                <div class="header3"><b>TP</b>: Correctly Detected Fish</div>
+            </div>
+            <div class="legend-item-det">
+                <div id="FN"></div>
+                <div class="header3"><b>FN</b>: Undetected Fish</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="fish_recognition" class="hidden">
+	   <div class="fullwidth header3">There are 2 versions of software that can detect fish species. The version 136 can detect 15 species, and the version 128 can detect 23 species.
+        <br />
+        Below are displayed evaluations of errors produced by each sofwtare version. Errors were measured using a ground-truth set of fish which species were manually recognized by experts.
+       </div>    
+	<!--div>
+	<div id="sr_overall_performance" class="padding" ><div class="header1">Overall performance of Versions 136 and 128</div></div>
+	<div id="sr_overall_performance_description" class="padding"><div class="header1">Version 136</div><div class="header2"><span id="136_correct" class="correct">85%</span> of the fish species are correctly detected</div>
+	<div class="header2"><span id="136_incorrect" class="incorrect">85%</span> of the fish species are misidentified</div>
+	<div class="header1">Version 128</div><div class="header2"><span id="128_correct" class="correct">85%</span> of the fish species are correctly detected</div><div class="header2"><span id="128_incorrect" class="incorrect">85%</span> of the fish species are misidentified</div>
+</div-->
+	
+	<div id="sr_performance_over_species">
+        <div class="header1">Performance of Version 136, detailed for each Species</div>
+        <img src="{% static "images/Perf_REC23.png" %}" width="930px" />
+         <div class="legend">
+            Legend:<br/>
+            <div class="legend-item padding">
+                <div id="FP"></div>
+                <div class="header3"><b>FP</b>: Fish from another species are attributed to the species at hand</div>
+            </div>
+            <div class="legend-item padding">
+                <div id="TP"></div>
+                <div class="header3"><b>TP</b>: The species is correctly recognized</div>
+            </div>
+            <div class="legend-item padding">
+                <div id="FN"></div>
+                <div class="header3"><b>FN</b>: Fish from the species at hand are attributed to another species</div>
+            </div>
+            <div class="legend-item padding">
+                <div id="NO"></div>
+                <div class="header3">The species cannot be detected</div>
+             </div>
+        </div>
+        <div class="header1">Performance of Version 128, detailed for each Species</div>
+        <img src="{% static "images/Perf_REC15.png" %}" width="930px" />
+         <div class="legend">
+            Legend:<br/>
+            <div class="legend-item padding">
+                <div id="FP"></div>
+                <div class="header3"><b>FP</b>: Fish from another species are attributed to the species at hand</div>
+            </div>
+            <div class="legend-item padding">
+                <div id="TP"></div>
+                <div class="header3"><b>TP</b>: The species is correctly recognized</div>
+            </div>
+            <div class="legend-item padding">
+                <div id="FN"></div>
+                <div class="header3"><b>FN</b>: Fish from the species at hand are attributed to another species</div>
+            </div>
+            <div class="legend-item padding">
+                <div id="NO"></div>
+                <div class="header3">The species cannot be detected</div>
+             </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div id="workflow" class="hidden"> 
+        <div id="ongoing_processes">
+            <div class="header1">Requested Video Analysis</div>
+            (updated at <span id="queries_list_update_time"></span>)
+            <div id="current_queries"></div>
+        </div>
+        <div id="run_analysis">
+            <div class="header1">Request a Specific Video Analysis</div>
+            <div class="hor_divider"></div>
+            <div>
+                <span class="header2">Timeframe</span>
+                from
+                <input type="text" onclick="$(this).datepicker()" class="datepicker" id="timeframe_start"/>
+                to
+                <input type="text" class="datepicker" onclick="$(this).datepicker()" id="timeframe_end"/>
+            </div>
+            <div class="hor_divider"></div>
+            <span class="header2">Camera</span>
+            <div id="camera_selection_wf">
+                <div class='filter_box'>
+                    <div id='f_c' class='filter_viz'></div>
+                </div>
+            </div>
+            <br /><br />
+            <br /><br />
+            <div class="hor_divider"></div>
+            <div class="wf_select_det">
+                <div>
+                    <span class="header2">Fish Detection software</span>
+                    <select id='workflow_detection' onchange="if($('#workflow_detection').prop('value') == '135'){
+                            $('#wf-perf-det141').attr('class', 'hidden');
+                            $('#wf-perf-det142').attr('class', 'hidden');
+                            $('#wf-perf-det135').attr('class', 'visible');
+                        }
+                        else if($('#workflow_detection').prop('value') == '141'){
+                            $('#wf-perf-det142').attr('class', 'hidden');
+                            $('#wf-perf-det135').attr('class', 'hidden');
+                            $('#wf-perf-det141').attr('class', 'visible');
+                        }
+                        else if($('#workflow_detection').prop('value') == '142'){
+                            $('#wf-perf-det135').attr('class', 'hidden');
+                            $('#wf-perf-det141').attr('class', 'hidden');
+                            $('#wf-perf-det142').attr('class', 'visible');
+                    }">
+                        <option value="135">D135 (default)</option>
+                        <option value="141">D141</option>
+                        <option value="142">D142</option>
+                    </select>
+                    <span> Performance:</span>
+                </div>
+                <!--div>Average time to compute using <span class="current_FD"></span>:<span id="comp_time_fd"></span></div>
+                <div>Performance of <span class="current_FD"></span> over video quality.></div-->
+                <div id="video_quality_wf">
+                    <img src="{% static "images/Perf_135.png" %}" height="150px" class="visible" id="wf-perf-det135" />
+                    <img src="{% static "images/Perf_141.png" %}" height="150px" class="hidden" id="wf-perf-det141" />
+                    <img src="{% static "images/Perf_142.png" %}" height="150px" class="hidden" id="wf-perf-det142" />
+                </div>
+            </div>
+            <div class="hor_divider"></div>
+            <div class="wf_select_rec">
+                <div>
+                    <span class="header2" >Species Recognition sofwtare</span>
+                    <select id='workflow_recognition' onchange="if($('#workflow_recognition').prop('value') == '136'){
+                            $('#wf-perf-rec128').attr('class', 'hidden');
+                            $('#wf-perf-rec136').attr('class', 'visible');
+                        }
+                        else if($('#workflow_recognition').prop('value') == '128'){
+                            $('#wf-perf-rec136').attr('class', 'hidden');
+                            $('#wf-perf-rec128').attr('class', 'visible');
+                    }">
+                        <option value="136">R136 (default)</option>
+                        <option value="128">R128</option>
+                    </select>
+                    <span> Performance:</span>
+                </div>
+                <!--div>Average time to compute using <span class="current_FD"></span>:<span id="comp_time_fr"></span></div-->
+                <!--div>Performance of <span class="current_FD"></span> over species.> </div-->
+                <div id="species_wf">
+                    <img src="{% static "images/Perf_136.png" %}" height="170px" class="visible" id="wf-perf-rec136" />
+                    <img src="{% static "images/Perf_128.png" %}" height="170px" class="hidden" id="wf-perf-rec128" />
+                </div>
+            </div>
+            <a class="button" id="vidana_estimate">Start Runtime Estimation</a>
+            <a class="button" id="vidana_start_analysis">Start Video Analysis</a>
+            <br /><br/><div id="estimation_result" style="clear:both"></div>
+        </div>
+</div>
+{% endblock %}
+
+{% block zonec %}{% endblock %}
+{% block zoned %}{% endblock %}

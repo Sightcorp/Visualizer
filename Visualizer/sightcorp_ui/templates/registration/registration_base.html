@@ -1,0 +1,58 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" >
+    <link rel="stylesheet" href="{% static "css/ui_base.css" %}" />
+    <link rel="stylesheet" href="{% static "css/zonea.css" %}" />
+
+    {% block head %}
+        <title>{% block title %}Fish4Knowledge{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+{#TEMPORARY FOR SUBMITTING FEEDBACK!!!#}
+<script type="text/javascript">var submitted=false;</script>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){alert('Thank you for your feedback!')}"></iframe>
+
+{#END FEEDBACK#}
+<div id="content" class="content">
+    {% block header %}
+        <div id="header" class="header" >
+        <img class="header_logo" alt="labeling" src="{% static "images/1b_CWI_LogoPMS193.png" %}" />
+        <div class="header_title">
+            <a href="http://homepages.inf.ed.ac.uk/rbf/Fish4Knowledge">Fish4Knowledge</a>
+        </div>
+
+    {% endblock %}
+    </div>
+
+    {% block global %}{% endblock %}
+    <div id="zonea" class="zonea" >
+        <div class="topbox">
+            {% if user.is_authenticated %}
+                <span>{% trans "Hello " %}{{ user.username }}!</span>
+                <span><a href="{% url auth_logout %}" >{% trans "Logout" %}</a></span>
+                <span><a href="{% url auth_password_change %}">{% trans "Password" %}</a></span>
+                <!--a href="{% url auth_password_change %}">{% trans "Change password" %}</a-->
+                <!--img class="cwi_logo" alt="labeling" src="{% static "images/1b_CWI_LogoPMS193.png" %}" /-->
+            {% endif %}
+            <span><a href ="http://www.cwi.nl/" target="_blank"><img class="cwi_logo" alt="CWI logo" src="{% static "images/1b_CWI_LogoPMS193.png" %}"/></a></span>
+            <span><a href ="http://www.fish4knowledge.eu" target="_blank"><img class="cwi_logo" alt="fish4knowledge logo" src="{% static "images/F4K-logo.png" %}"/> </a></span>
+        </div>
+        {% if user.is_authenticated %}
+            .
+        {% endif %}
+        {% block zonea %}{% endblock %}
+    </div>
+
+    {% block content %}{% endblock%}
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,452 @@
+body {
+    font: 14px arial, sans-serif;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+   /* width: 100%;
+    height: 100%; */
+    color: #939598;
+    min-width: 1250px;
+    position: absolute;
+}
+
+/* ui zones*/
+div.content {
+    margin: 10px;
+    margin-left: 0px;
+	width:100%;
+    position: relative;
+    overflow-y: auto;
+}
+
+div.header {
+    margin-top: 0px;
+    margin-left: 0px;
+    width: 100%;
+    height: 22px;
+    color: #939598;
+    display: none;
+}
+
+div.zonea {
+    margin-top: 0px;
+    margin-left: 10px;
+    padding-top: 5px;
+    width: 100%;
+    min-width: 1250px;
+    height: 30px;
+    position: fixed;
+    top: 0px;
+    overflow: hidden;
+    background: #fff;
+    z-index: 4;
+}
+
+.feedback_box {
+    float: right;
+    z-index: 20;
+    color: #80BC22;
+    border: 1px solid #333;
+    padding: 10px;
+    background: #fff;
+    position: fixed;
+    right: 0px;
+    box-shadow: -2px 2px 5px #999;
+}
+#main_chart{
+    position: fixed;
+    left: 20px;
+    background: #fff;
+    width: 100%;
+    padding-bottom: 22px;}
+
+div.zoneb {
+    margin-top: 25px;
+    margin-left: 0px;
+    min-width: 1300px;
+    width: 100%;
+    /*position: fixed;*/
+    background: #fff;
+    padding-left: 0px;
+	overflow:auto;
+}
+
+div.zonec {
+    margin-top: 6px;
+    margin-left: 30px;
+    /*min-width: 900px;
+    width: 90%;*/
+    width:900px;
+    height: 31px;
+    border-top: 1px solid #333;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    position: fixed;
+    top: 350px;
+    padding-left: 10px;
+    background: #eee;
+    background: url('../picto/limit_zonec.png') 165px 0px no-repeat #eee;
+}
+
+#zoned {
+    margin-top: 400px;
+    margin-left: 0px;
+    min-width: 1050px;
+    width: 100%;
+    overflow-y:scroll;
+    position:fixed;
+
+}
+
+div.footer, .push {
+    text-align: center;
+}
+
+div.header_title {
+    display: none;
+    float: left;
+    margin-left: 30px;
+    margin-top: 2px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0404B4;
+}
+
+div.header_title a:link {
+    text-decoration: none;
+    color: #0B0B61;
+}
+
+div.header_title a:visited {
+    text-decoration: none;
+    color: #0B0B61;
+}
+
+div.header_title a:hover {
+    color: #208FBD;
+    text-decoration: none;
+}
+
+div.header_title a:active {
+    text-decoration: none;
+    color: #0B0B61;
+}
+
+img.header_logo {
+    display: none;
+    margin-left: 0px;
+    float: left;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    height: 63px;
+}
+
+.topbox {
+    float: right;
+    margin-right: 10px;
+    font-size: 14px;
+    z-index: 5;
+    width: 350px;
+    height: 30px;
+    margin-left: 0;
+    overflow: hidden;
+    padding-top: 8px;
+    right: 10px;
+    margin-top: 0px;
+}
+
+.topbox span {
+    vertical-align: middle;
+    color: #666;
+}
+
+.topbox a {
+    text-decoration: none;
+    color: #666;
+    margin-left: 5px;
+    padding-top: 1px;
+}
+
+.topbox a:hover {
+    text-decoration: none;
+    color: #27aae1;
+    padding-top: 5px;
+}
+
+a.home {
+    float: left;
+    padding-top: 8px;
+    font-size: 12px;
+    text-decoration: none;
+    color: #666;
+    background: url("../picto/home.png") 0px 3px no-repeat;
+    padding-left: 23px;
+    padding-right: 7px;
+}
+
+a:hover.home {
+    float: left;
+    padding-top: 8px;
+    font-size: 12px;
+    text-decoration: none;
+    background: url("../picto/home_over.png") 0px 3px no-repeat;
+    padding-left: 23px;
+    padding-right: 7px;
+    color: #27aae1;
+}
+
+div.account {
+    font-size: 16px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+#loading_image.hidden {
+    display: none;
+}
+
+#loading_image {
+    background: url('../images/loading_image.gif') no-repeat center center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow: hidden;
+}
+
+#report {
+    height: 600px;
+}
+
+#allzone {
+    position: fixed;
+    top: 0px;
+    height: 35px;
+    width: 100%;
+    border-bottom: 1px solid #333;
+    background: #fff;
+    z-index: 3;
+}
+
+.cwi_logo {
+    vertical-align: middle;
+    margin-top: -7px;
+    height: 27px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+
+/*custom controls */
+
+.zonec select, .zoned select {
+    padding: 4px;
+    font-size: 13px;
+    height: 25px;
+    margin: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 0px 0 #D8D8D8, 0 -1px #EDEDE6 inset;
+    -moz-box-shadow: 0 0px 0 #D8D8D8, 0 -1px #EDEDE6 inset;
+    box-shadow: 0 0px 0 #D8D8D8, 0 -1px #EDEDE6 inset;
+    background: #eee;
+	color: #303030;
+    border: none;
+    outline: none;
+    display: inline-block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+
+.zoned label, .zonec label {
+    position: relative
+}
+
+.zoned label:after, .zonec label:after {
+    content: '>';
+    font: 20px "Consolas", monospace;
+    color: #aaa;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 4px;
+    top: -2px;
+    padding: 0 0 2px;
+    position: absolute;
+    pointer-events: none;
+}
+
+.zoned label:before, .zonec label:before {
+    content: '';
+    right: 2px;
+    top: -2px;
+    width: 28px;
+    height: 22px;
+    background: #eee;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}
+.button{
+	border:1px solid #d7dada; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:14px;font-family:helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;font-weight:bold; color: #292929;
+	 background-color: #f4f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd));
+	 background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
+	 background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
+	 background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
+	 background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+	 background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f4f5f5, endColorstr=#dfdddd);
+}
+
+.button:hover{
+	 border:1px solid #bfc4c4;
+	 background-color: #d9dddd; background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), to(#c6c3c3));
+	 background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
+	 background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
+	 background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
+	 background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
+	 background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
+}
+
+.close_cross {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url('../picto/close.png') 0px 0px no-repeat;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+div:hover.close_cross {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url('../picto/close_over.png') 0px 0px no-repeat;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.close_cross_global {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url('../picto/close.png') 0px 0px no-repeat;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+div:hover.close_cross_global {
+    float: right;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url('../picto/close_over.png') 0px 0px no-repeat;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#introContent {
+    position: relative;
+    top: 40px;
+    padding: 10px;
+    overflow-y: scroll;
+    color: #333;
+}
+
+div.intro_open {
+    color: #666;
+    padding-left: 25px;
+    background: url('../picto/title_behaviour.png') left no-repeat;
+}
+
+div:hover.intro_open {
+    color: #27aae1;
+    padding-left: 25px;
+    background: url('../picto/title_behaviour_over.png') left no-repeat;
+}
+
+.intro_title {
+    color: #80BC22;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.intro_img {
+    float: left;
+    width: 38%;
+    padding-right: 15px;
+}
+
+.intro_logo {
+    float: left;
+    width: 100px;
+    padding-right: 15px;
+}
+
+.intro_tuto {
+    float: left;
+    width: 60%;
+}
+
+#introContent span {
+    margin-top: 7px;
+    display: block;
+}
+
+.intro_ccl {
+    clear: both;
+    color: #80BC22;
+    padding-top: 17px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.intro_start {
+    text-align: center;
+    border: 1px solid #333;
+    background: #eee;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-bottom: 15px;
+}
+
+.feedback_title {
+    font-style: italic;
+}
+
+#feedback {
+    border: 1px solid #80BC22;
+    background: #FAFFF5;
+}
+
+.ss-q-item-label {
+    font-style: italic;
+}
+
+.green_txt {
+    color: #80BC22;
+    font-style: italic;
+}

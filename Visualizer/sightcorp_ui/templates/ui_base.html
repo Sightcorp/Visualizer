@@ -1,0 +1,165 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load apptags %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>{% block title %}Sightcorp{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" />
+    <link rel="stylesheet" href="{% static "js/lib/jquery-1.9.1/jquery-ui-1.9.1.custom.css" %}" />
+
+    <script src="{% static "js/lib/jquery-1.9.1/jquery-1.9.1.min.js" %}" ></script>
+    <script src="{% static "js/lib/jquery-1.9.1/jquery-ui-1.9.1.custom.js" %}" ></script>
+    <script src="{% static "js/lib/json2.js" %}" ></script>
+    <script src="{% static "js/lib/d3/d3.v3.min.js" %}" ></script>
+
+    <script src="{% static "js/init.js" %}" ></script>
+    <script src="{% static "js/parameters.js" %}" ></script>
+
+    <script type="text/javascript">
+        var parameters = {{ parameters|jsonify }};
+        var static_url = "{% static "" %}";
+        var video_type_names = {{ video_class_names|jsonify }};
+    </script>
+
+    <link rel="stylesheet" href="{% static "css/ui_base.css" %}" />
+    <link rel="stylesheet" href="{% static "css/zonea.css" %}" />
+    <link rel="stylesheet" href="{% static "css/zoneb.css" %}" />
+    <link rel="stylesheet" href="{% static "css/zonec.css" %}" />
+    <link rel="stylesheet" href="{% static "css/zoned.css" %}" />
+    <link rel="stylesheet" href="{% static "css/report.css" %}" />
+    <link rel="stylesheet" href="{% static "css/chart.css" %}" />
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+<div id="dialog" title="Warning"></div>
+
+{#TEMPORARY FOR SUBMITTING FEEDBACK!!!#}
+<script type="text/javascript">var submitted=false;</script>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){alert('Thank you for your feedback!'); getElementById('entry_1087016702').value='';}"></iframe>
+{#END FEEDBACK#}
+<div id="content" class="content">
+    <div id="loading_image" class="hidden"></div>
+
+    {% block header %}
+        <div id="header" class="header" >
+            <img class="header_logo" alt="labeling" src="{% static "images/1b_CWI_LogoPMS193.png" %}"/>
+            <div class="header_title"><a href="http://http://sightcorp.com/">Sightcorp</a></div>
+        </div>
+    {% endblock %}
+
+    {% block global %}
+        {# place a form that records where the parameter change is from to enable the views to handel different situations#}
+        <form id="param_form"  name="parameters" method="post" action="."> {% csrf_token %}
+            <input id="changed_pa" type="hidden" name="changed_pa" value="" >
+            <input id="changed_val" type="hidden" name="changed_val" value="" >
+            <input id='active_tab' type="hidden" name="active_tab" value="{{active_tab}}">
+        </form>
+    {% endblock %}
+
+    <div id="zonea" class="zonea" >
+        <div class="topbox">
+            {% if user.is_authenticated %}
+                <span>{% trans "Hello " %}{{ user.username }}!</span>
+                <span><a href="{% url auth_logout %}" >{% trans "Logout" %}</a></span>
+                <span><a href="{% url auth_password_change %}">{% trans "Password" %}</a></span>
+            {% endif %}
+            <span><a href ="http://www.cwi.nl/" target="_blank"><img class="cwi_logo" alt="CWI logo" src="{% static "images/1b_CWI_LogoPMS193.png" %}"/></a></span>
+            <!--span>
+                <a href ="http://www.fish4knowledge.eu" target="_blank"><img class="cwi_logo" alt="fish4knowledge logo" src="{% static "images/F4K-logo.png" %}"/> </a>
+            </span-->
+        </div>
+
+        {% block zonea %}
+            {% url f4k_ui.views.videos as video_url %}
+            {% url f4k_ui.views.vidana as vidana_url %}
+            {% url f4k_ui.views.rawdata as rawdata_url %}
+            {% url f4k_ui.views.visualization as vis_url %}
+            {% url f4k_ui.views.report as report_url %}
+            {% url f4k_ui.views.home as home_url %}
+            <a class="home zonea_tab" href="{{ home_url }}">{% trans "Home" %}</a>
+            <div class="tabs{{active.vid}}"><a href="{{ video_url }}" class="videotab zonea_tab">{% trans "Video" %}</a></div>
+            <!--div class="tabs{{active.vidana}}"><a href="{{ vidana_url }}" class="vidanatab zonea_tab">{% trans "Video Analysis" %}</a></div-->
+            <!--div class="tabs{{active.rawdata}}"><a href="{{ rawdata_url }}" class="rawdatatab zonea_tab">{% trans "Extracted Data" %}</a></div-->
+            <div class="tabs{{active.rawdata}}"><a href="{{ rawdata_url }}" class="vidanatab zonea_tab">{% trans "Video Analysis" %}</a></div>
+            <div class="tabs{{active.vis}}"><a href="{{ vis_url }}" class="viztab zonea_tab" >{% trans "Visualization" %}</a> </div>
+            <div class="tabs{{active.report}}"><a href="{{ report_url }}" class="reporttab zonea_tab" >{% trans "Report" %}</a> </div>
+        {% endblock %}
+    </div>
+
+    {#Reconsider zoneb after the feedback box is deleted#}
+    <div id="zoneb" class="zoneb">
+        <div class="zoneb_container">
+            {% block zoneb %}
+                {% block zoneb_subtabs %}{% endblock %}
+                {% block zoneb_content %}{% endblock %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block zonec %}
+        <div id="zonec" class="zonec">
+            <div class="options chart_type">
+                <label><select id="chart_type"></select></label>
+            </div>
+
+            <div class="options yaxis">
+                <label><select id="yaxis"></select></label>
+            </div>
+
+            <div class="options xaxis">
+                <label><select id="xaxis"></select></label>
+            </div>
+
+            <div class="options zaxis">
+                <label><select id="zaxis"></select></label>
+            </div>
+        </div>
+
+        <div id="save-viz" type="button">Save in Report</div>
+    {% endblock %}
+
+    {% block zoned %}
+        <div id="zoned" class="zoned">
+            <div class="zoned_summary">
+                <div class="options_filter filters_selection">
+                    <label>
+                        <select class="filters_list" id="filters_selection">
+                            <option value="" selected>Open a filter&nbsp;&nbsp;&darr;</option>
+                            <option value="f_h" id="sel_f_h">Hour of the Day</option>
+                            <option value="f_d" id="sel_f_d">Day</option>
+                            <option value="f_c" id="sel_f_c">Camera</option>
+                            <option value="f_gen" id="sel_f_gen">Gender</option>
+                            <option value="f_age" id="sel_f_age">Age</option>
+                            <option value="f_mood" id="sel_f_mood">Mood</option>
+                            <option value="f_hap" id="sel_f_hap">Happy</option>
+                            <option value="f_dis" id="sel_f_dis">Disgusted</option>
+                            <option value="f_ang" id="sel_f_ang">Angry</option>
+                            <option value="f_sur" id="sel_f_sur">Surprised</option>
+                            <option value="f_afr" id="sel_f_afr">Afraid</option>
+                            <option value="f_sad" id="sel_f_sad">Sad</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="filters_summary"></div>
+            </div>
+            <div class="param_type_area" >
+                <div class="filters_area" >
+                    <ul class="zoned_filter_area" id="filters_area"></ul>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div id="allzone" class="allzone">
+        {% block allzone %}{% endblock %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "ui_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="text/javascript">
+        var video_data_url = '{{ video_data_url|escapejs }}';
+        var filter_data_url = '{{ filter_data_url|escapejs }}';
+    </script>
+    <script src="{% static "js/controller/video.js" %}" ></script>
+    <script src="{% static "js/controller/filter.js" %}" ></script>
+    <script src="{% static "js/charts/bar.js" %}" ></script>
+{% endblock %}
+
+{% block zoneb_content %}
+    <div class="video_ret" id="video_ret">
+        <h3>Videos</h3>
+        <div class="video_list" id="video_list">
+            Retrieving videos...
+        </div>
+    </div>
+    <div class="video_play" id="video_play">
+        <div class="video_play_title" id="video_play_title">
+            Please wait while the video is loading ...
+        </div>
+        <div class="video_play_box" id="video_clip"></div>
+    </div>
+
+    <div class="video_fish_counts" id="video_fish_counts">
+        <h3>Species in current video</h3>
+    </div>
+{% endblock %}
+
+{% block zonec %}{% endblock %}
+
+    {% block zoned %}
+    <div id="zoned_videotab_layout">
+        <div id="zoned" class="zoned">
+            <div class="zoned_summary">
+                <div class="options_filter filters_selection">
+                    <label>
+                        <select class="filters_list" id="filters_selection">
+                            <option value="" selected>Open a filter&nbsp;&nbsp;&darr;</option>
+                            <option value="f_s" id="sel_f_s">Species</option>
+                            <option value="f_c" id="sel_f_c">Camera</option>
+                            <option value="f_y" id="sel_f_y">Year</option>
+                            <option value="f_w" id="sel_f_w">Week of the Year</option>
+                            <option value="f_h" id="sel_f_h">Hour of the Day</option>
+                            <option value="f_vt" id="sel_f_vt">Video Quality</option>
+                            <option value="f_cs" id="sel_f_cs">Certainty Score</option>
+                            <option value="f_so" id="sel_f_so">Software</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="filters_summary"></div>
+            </div>
+            <div class="param_type_area" >
+                <div class="filters_area" >
+                    <ul class="zoned_filter_area" id="filters_area"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,538 @@
+div.zoneb_container {
+    margin-left: 0px;
+    margin-top: 0px;
+    padding-left: 30px;
+}
+
+div.video_ret {
+    float: left;
+    color: #0B0B61;
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 5px;
+    height: 310px;
+    width: 270px;
+}
+
+div.video_list {
+    float: left;
+    width: 270px;
+    height: 250px;
+    overflow: auto;
+}
+
+div.video_play {
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    height: 300px;
+    width: 300px;
+
+}
+
+div.video_play_title {
+    height: 20px;
+}
+
+div.video_play_box {
+    float: left;
+    height: 250px;
+    width: 300px;
+    border: 2px solid #0B0B61;
+}
+
+div.video_fish_counts {
+    float: left;
+    height: 250px;
+    width: 250px;
+    margin-left: 30px;
+    margin-top: 30px;
+    color: #333;
+}
+
+div.vid_item:hover {
+    color: #0040FF;
+    cursor: pointer;
+}
+
+#filters_summary {
+    margin-left:200px;
+	min-height: 18px;
+	padding-top: 7px;
+    text-align: left;
+    width: 100%;
+    color: #999;
+}
+
+.title_axes {
+    color: #000;
+    font-weight: bold;
+}
+.title_param_box{
+	position:relative;
+	float:left;
+}
+.title_param_value {
+	color: #666;
+	font-weight: bold;
+}
+
+.subtabs-vidana {
+    margin-left: 30px;
+    position: fixed;
+    width: 800px;
+}
+
+.subtab {
+    position: relative;
+    padding-top: 5px;
+    z-index: 20;
+    font-weight: bold;
+    width: 180px;
+    height: 17px;
+    float: left;
+    text-align: center;
+    border:  1px solid #c1c1c1;
+    border-top: 1px solid #666;
+    margin-left:-1px;
+    z-index:0;
+}
+
+.subtab:hover, .subtab-active {
+    position: relative;
+    padding-top: 5px;
+    z-index: 20;
+    font-weight: bold;
+    width: 180px;
+    height: 17px;
+    float: left;
+    text-align: center;
+    color: #333;
+    background: #ccc;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #666666;
+    z-index:1;
+}
+
+#workflow {
+    position:fixed;
+    top:60px;
+    min-width: 1200px;
+    padding-top: 10px;
+    margin-left: 0;
+    height:100%;
+    overflow: auto; /*needed so that div stretches with child divs*/
+}
+
+.addText {
+    font-size: 13px;
+    font-style: italic;
+}
+
+div.addText {
+    margin-bottom: 15px;
+}
+
+.header1 {
+    font-size: 18px;
+    font-weight: bold;
+    font-style: normal;
+    margin-bottom: 5px;
+    color: black;
+}
+.header2 {
+    font-size: 14px;
+    font-style: normal;
+    color: black;
+	margin-right:5px;
+}
+.header3 {
+    font-size: 14px;
+    font-style: italic;
+    color: black;
+	margin-left:10px;
+	margin-right:5px;
+    vertical-align: middle;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+#run_analysis {
+    position: relative;
+    left:0px;    
+    top:0px;
+    width: 470px;
+    height:690px;
+    margin: 0px;
+    padding: 0px;
+    padding-right:10px;
+    display:block;
+    border-right: 1px solid #eee;
+}
+
+#ongoing_processes {
+    position: fixed;
+    left:520px;    
+    top:70px;
+    width: 650px;
+    height:100%;
+    overflow-y:auto;
+    margin: 0;
+    padding: 0;
+    display:block;
+    clear:both;
+}
+
+.divider {
+    position: absolute;
+    left: 450px;
+    top: 0px;
+    bottom: 0px;
+    border-left: 1px solid #E6E8FA;
+	height: 100%;/**/
+}
+.hor_divider {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    border-top: 1px solid #E6E8FA;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+#camera_selection_wf{
+    position:absolute;
+    clip: rect(155px,400px,200px,0px);
+    top:-48px;
+}
+#camera_selection_wf .filter_box{
+    margin-top:0px;
+} 
+#camera_selection_wf g, #camera_selection_wf line, #camera_selection_wf text{
+    position:relative;
+    top:-250px;
+} 
+#video_quality_wf{
+	height:30px;
+}
+#species_wf{
+	height:30px;
+}
+div#btn_estimate_time {
+    height: 25px;
+    width: 110px;
+    background-image: url('../picto/btn_estimate_time.png');
+    background-repeat: no-repeat;
+}
+
+#vidana_estimate {
+    position:relative;
+    float:left;
+}
+
+#vidana_start_analysis {
+    position:relative;
+    float:right;
+}
+
+div.controls {
+    position: relative;
+    float: left;
+    height: 25px;
+    margin-top: 25px;
+    margin-left: 5px;
+}
+
+#estimated_time {
+    height: 25px;
+    width: 240px;
+    font-size: 15px;
+}
+
+.time {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+}
+
+#time, .time_left {
+    float: left;
+    font-size: 15px;
+    color: #666;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.query_id {
+    float: left;
+    margin-right: 5px;
+}
+
+.options_analysis {
+    margin-left: 10px;
+    width: 130px;
+}
+
+.message {
+    display: none;
+    color: #000;
+    position: absolute;
+    left: 470px;
+    color: #27AAE1;
+    font-weight: bold;
+}
+
+.close_cross:hover + .message {
+    display: block;
+    z-index: 10;
+}
+
+.status_pending, .status_running {
+    float: left;
+    width: 70px;
+    height: 20px;
+    display: block;
+    background: url('../picto/ongoing.png') 0px 0px no-repeat;
+    margin-left: 0px;
+    margin-right: 3px;
+}
+
+.status_completed {
+    float: left;
+    width: 70px;
+    height: 20px;
+    display: block;
+    background: url('../picto/done.png') 0px 0px no-repeat;
+    margin-left: 0px;
+    margin-right: 3px;
+}
+
+.status_abandoned {
+    float: left;
+    width: 70px;
+    height: 20px;
+    display: block;
+    background: url('../picto/cancelled.png') 0px 0px no-repeat;
+    margin-left: 0px;
+    margin-right: 3px;
+}
+
+.detection_sft {
+    float: left;
+    margin-right: 5px;
+}
+
+.recognition_sft {
+    float: left;
+    margin-right: 5px;
+}
+
+.progress_bar {
+    float: left;
+    width: 70px;
+    height: 10px;
+    margin-right: 5px;
+    background-color: black;
+    border-radius: 7px; /* (height of inner div) / 2 + padding */
+    padding: 3px;
+}
+
+.progress_bar div {
+    background-color: orange;
+    height: 10px;
+    border-radius: 10px;
+}
+
+.process {
+    position: relative;
+    float: left;
+    margin-top: 10px;
+}
+
+.right_controls{
+	float:right;
+	margin-right:25%;
+}
+#overview{
+position: fixed;
+top: 60px;
+height: 100%;
+overflow-y: auto;
+}
+#fish_recognition{
+position: fixed;
+top: 60px;
+height: 100%;
+overflow-y: auto;
+}
+#fish_detection{
+position: fixed;
+top: 60px;
+	width: 70%;
+	min-width: 800px;
+    max-width: 1100px;
+height: 90%;
+overflow-y: auto;
+padding-bottom:100px;
+	}
+#fd_overall_performance{
+	padding:20px;
+	float:left;
+	width: 40%;
+	height:350px;
+}
+#fd_performance_video_quality{
+	padding:20px;
+	float:right;
+	width:30%;
+	height:350px;
+}
+#FN{
+	float:left;
+	width:15px;
+	height:15px;
+	background-color:#CC3333;
+	border:1px solid #CC3333;
+	margin-top:6px;
+    margin-right:3px;
+	margin-bottom:1px;
+}
+#TP{
+	float:left;
+	width:15px;
+	height:15px;
+	background-color:#3399CC;
+    border:2px solid black;
+    border-top:none;
+	margin-top:6px;
+    margin-right:6px;
+	margin-bottom:6px;
+	
+}
+#FP{
+	float:left;
+	width:15px;
+	height:15px;
+	background-color:white;
+	border:2px solid black;
+    border-bottom:1px solid #3399CC;
+	margin-top:6px;
+    margin-right:6px;
+	margin-bottom:1px;
+}
+#NO{
+	float:left;
+	width:15px;
+	height:15px;
+	background-color:#DCDCDC;
+	border:1px solid #DCDCDC;
+    margin-top:6px;
+    margin-right:6px;
+	margin-bottom:1px;
+}
+#fd_performance img{
+    float:left;
+    margin-left:20px;
+    margin-top:0px;
+    margin-right: 50px;
+}
+.legend{
+    width:1200px;
+    margin-left: 10px;
+    height:80px;
+}
+.legend-det{
+    float:left;
+}
+.legend-item{
+	float:left;
+    width: 250px;
+}
+#fd_performance .header1{
+    clear:both;
+}
+.fullwidth{
+    width: 930px;
+}
+.padding{
+	padding:10px;
+}
+div#sr_overall_performance{
+	float:left;
+	margin-left:20px;
+	width:450px;
+	height:150px;
+	background-color:green;
+}
+div#sr_overall_performance_description{
+	float:left;
+	margin-left:10px;
+	margin-right:20px;
+	width:350px;
+	height:150px;
+}
+#sr_performance_over_species{
+	margin-left:20px;
+    margin-bottom: 100px;
+}
+div .border_dashed{
+	float:left;
+	width:100%;
+	margin-top:15px;
+	border-bottom:1px dashed black;
+}
+div#sr_species_list{
+	float:left;
+	margin-left:20px;
+	margin-right:20px;
+	margin-top: 20px;
+	width:300px;
+	height:400px;
+}
+div#sr_species_evaluation{
+	float:left;
+	margin-left:10px;
+	margin-right:20px;
+	margin-top: 20px;
+	width:60%;
+	min-width:500px;
+	background-color:green;
+}
+div .sr_evaluation_item{
+	float:left;
+	margin-left:10px;
+	margin-right:10px;
+	margin-top: 10px;
+	width:47%;
+	min-width:230px;
+	height:250px;
+	background-color:red;
+}
+.species_name{
+	margin-left:10px;
+	margin-right:10px;
+	font-size:18px;
+}
+.species_name:hover{
+	margin-left:10px;
+	margin-right:10px;
+	font-size:18px;
+	background-color:#DCDCDC;
+}
+.correct{
+	font-weight:bold;
+	color:#3399CC;
+}
+.incorrect{
+	font-weight:bold;
+	color:black;
+}
+.not-detected{
+	font-weight:bold;
+	color:#8B0000;
+}
+.wf_select_det{
+    height:170px;
+}
+.wf_select_rec{
+    height:200px;
+}

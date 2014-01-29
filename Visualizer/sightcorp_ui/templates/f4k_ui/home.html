@@ -1,0 +1,24 @@
+{% extends "ui_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="text/javascript">
+        var visualization_url = '{% url f4k_ui.views.visualization %}';
+    </script>
+{% endblock %}
+
+{% block allzone %}
+   {% url f4k_ui.views.visualization as vis_url %}
+    <div id="introContent">
+        <div>
+            
+            <div class="intro_title">Welcome on the sightcorp demo</div>
+            Lorem ipsum
+        </div>
+    </div>
+{% endblock %}
+
+{% block zoneb %}{% endblock %}
+{% block zonec %}{% endblock %}
+{% block zoned %}{% endblock %}

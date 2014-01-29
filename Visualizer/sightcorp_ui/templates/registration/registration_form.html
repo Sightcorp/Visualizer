@@ -1,0 +1,14 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% if show_registration%}
+        <div class="account" >
+            <form method="post" action=".">{% csrf_token %}
+                {{ form.as_p }}
+
+                <input type="submit" value="{% trans 'Submit' %}" />
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

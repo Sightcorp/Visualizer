@@ -1,0 +1,40 @@
+{% extends "ui_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+    <script type="text/javascript">
+        var visualization_url = '{% url f4k_ui.views.visualization %}';
+        var user_report = '{{ user_report|escapejs }}';
+        var user_report_file = '{{ user_report_file|escapejs }}';
+        var viz_data_url = '{{ viz_data_url|escapejs }}';
+    </script>
+    <script src="{% static "js/controller/report.js" %}" ></script>
+    <script src="{% static "js/controller/viz.js" %}" ></script>
+    <script src="{% static "js/charts/line.js" %}" ></script>
+    <script src="{% static "js/charts/stack.js" %}" ></script>
+    <script src="{% static "js/lib/d3/box.js" %}" ></script>
+    <script src="{% static "js/charts/box.js" %}" ></script>
+    <script src="{% static "js/controller/dimension.js" %}" ></script>
+{% endblock %}
+
+
+    {% block zoneb_content %}
+    <div id="report_layout">
+        <a id="download_container" class="download">
+            <span>Download<br>Report</span>
+        </a>
+        <div class="upload">
+            <form id="upload_form" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                <input id="upload_file" type="file" name="report">
+            </form>
+            <span>Upload<br>Report</span>
+        </div>
+        <textarea id="report_title" placeholder="Report title" rows="2"></textarea>
+        <div id="report_content"></div>
+    </div>
+    {% endblock %}
+
+
+{% block zonec %}{% endblock %}
+{% block zoned %}{% endblock %}

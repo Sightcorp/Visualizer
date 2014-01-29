@@ -1,0 +1,75 @@
+---
+- hosts: f4k_dev
+
+  vars:
+    # prudentia_dir -> is passed in the cmd line
+    - root_dir: ../../../
+    - ssh_dir: /home/$user/.ssh
+
+  vars_files:
+    - $prudentia_dir/vars/global.yml
+    - ./dev_vars.yml
+
+  tasks:
+    - include: $prudentia_dir/tasks/common-setup.yml
+
+    # Remember to add the public key as deploy key for this repository
+    - include: $prudentia_dir/tasks/ssh-key.yml ssh_user=$user ssh_group=$user ssh_dir=/home/$user files_dir=$root_dir/files key_name=id_rsa
+
+    - include: $prudentia_dir/tasks/mercurial.yml
+
+    - name: F4K | Add ec2.ins.cwi.nl to known_host
+      lineinfile: dest=$ssh_dir/known_hosts create=yes regexp='^ec2\.ins\.cwi\.nl.*$' line='ec2.ins.cwi.nl ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD2B8xJrFzCZNT+y1Ajtru8w2hKi8X5+ZH+wJVyWs2bTpkB5zmPpO3VzOzURBr7yL/HUN6+ekzG8BFE68jfPSAPZS2tCSqSuccXVVKBFZobAfos0EOjcBQpP4OW3kPtaQeS2lzZqYO3h06+/4vwhNP4KsKduq4IziNNr9bpdeFjF2M6AuFGVBL7SYcLzXmN2v1j6b4ebs8syQki9aqEFcyLIVcDwE2LmXxwqEs26gnXqz3ooesEWaywy2efGrAmoT88kGmFWXILUl2uC6RwQsHSNinmc4n3+rO6vNe+JSazC3rF+n/mikgKAxVx6VtrJbUJ2byO8ht/LEEj54Q/Unr'
+
+    - name: F4K | Checkout from repository
+      hg: repo=ssh://gast701@ec2.ins.cwi.nl//home/f4k/hg/django_ui/ dest=$install_dir force=yes
+      register: checkout
+      tags: [update]
+
+    - name: F4K | Create logs directory
+      file: path=$install_dir/logs state=directory mode=0777
+
+    - include: $prudentia_dir/tasks/python.yml
+
+    - name: F4K | Install Django
+      pip: name=django version=1.4.5
+      sudo: yes
+    - name: F4K | Install Django registration
+      pip: name=django-registration version=0.8
+      sudo: yes
+
+    - name: F4K | Install MySQL libs
+      apt: pkg=$item state=present
+      sudo: yes
+      with_items:
+        - mysql-client-core-5.5
+        - libmysqlclient-dev
+
+    - name: F4K | Install MySQL python driver
+      pip: name=mysql-python
+      sudo: yes
+
+    - name: F4K | Install Apache2
+      apt: pkg=$item state=present
+      sudo: yes
+      with_items:
+        - apache2
+        - libapache2-mod-wsgi
+
+    - name: F4K | Disable Apache default conf
+      command: a2dissite default
+      sudo: yes
+
+    - name: F4K | Copy Apache conf
+      template: src=$root_dir/templates/httpd.conf dest=/etc/apache2/sites-available/f4k owner=root group=root mode=0644
+      sudo: yes
+      tags: [update]
+
+    - name: F4K | Enable Apache f4k conf
+      command: a2ensite f4k
+      sudo: yes
+
+    - name: F4K | Restart Apache
+      service: name=apache2 state=restarted
+      sudo: yes
+      tags: [update]

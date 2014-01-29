@@ -1,0 +1,134 @@
+.options {
+    float: left;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.options_filter {
+    float: left;
+    color: #333;
+    margin-right: 7px;
+}
+
+#filters_selection {
+    font-size: 13px;
+    padding-left: 35px;
+    background: url("../picto/filter_small.png") 5px 3px no-repeat;
+    width: 155px;
+}
+
+#filters_selection option {
+    font-weight: normal;
+    padding-left: 20px;
+}
+
+#filters_selection #none {
+    padding-left: 0px;
+}
+
+#filters_selection option:disabled {
+    background: url("../picto/opened.png") 0px 0px no-repeat;
+}
+
+.chart_type {
+    padding-left: 35px;
+    background: url("../picto/chart_small.png") 0px -2px no-repeat;
+    color: #333;
+    margin-left: 0px;
+    width: 155px;
+}
+
+div:hover.chart_type {
+    padding-left: 35px;
+    background: url("../picto/chart_small.png") 0px -2px no-repeat;
+    color: #27aae1;
+    margin-left: 0px;
+}
+
+#chart_type {
+    width: 120px;
+}
+
+.xaxis {
+    padding-left: 35px;
+    background: url("../picto/x-axis.png") 5px -2px no-repeat;
+    color: #333;
+    margin-right: 10px;
+}
+
+div:hover.xaxis {
+    padding-left: 35px;
+    background: url("../picto/x-axis.png") 5px -2px no-repeat;
+    color: #333;
+    margin-right: 10px;
+}
+
+#xaxis {
+    width: 150px;
+}
+
+.yaxis {
+    padding-left: 35px;
+    background: url("../picto/y-axis.png") 5px -2px no-repeat;
+    color: #333;
+    margin-right: 10px;
+}
+
+div:hover.yaxis {
+    padding-left: 35px;
+    background: url("../picto/y-axis.png") 5px -2px no-repeat;
+    color: #333;
+    margin-right: 10px;
+}
+
+#yaxis {
+    width: 245px;
+}
+
+.zaxis {
+    padding-left: 32px;
+    color: #333;
+}
+
+div:hover.zaxis {
+    padding-left: 32px;
+    color: #333;
+}
+
+.zaxis_simple {
+    display: none;
+}
+
+.zaxis_stacked {
+    background: url("../picto/z-axis_stackedchart.png") 0px -1px no-repeat;
+}
+
+.zaxis_box {
+    background: url("../picto/z-axis_boxplot.png") 0px -2px no-repeat;
+}
+
+#zaxis {
+    width: 170px;
+}
+
+#xaxis option:disabled, #yaxis option:disabled, #zaxis option:disabled {
+    padding-left: 20px;
+    background: url("../picto/blocked.png") 0px -4px no-repeat;
+}
+#save-viz{
+    position: fixed;
+    top: 356px;
+    left: 941px;
+    padding-top: 12px;
+    width: 70px;
+    border: 1px solid #333;
+    height: 50px;
+    color:#000;
+    background: url('../picto/tab_report_select.png') no-repeat 10px 20px #eee;
+    padding-left:40px;
+}
+#save-viz:hover{
+    color:#208FBD;
+    background: url('../picto/tab_report_over.png') no-repeat 10px 20px #fff;
+    border: 1px solid #208FBD;
+}
