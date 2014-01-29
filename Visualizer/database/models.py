@@ -1,4 +1,6 @@
 from django.db import models
+#from f4k_ui.db.managers import SummaryCameraManager, CamerasManager, SpeciesManager, VideoManager, UserQueryManager
+from f4k_ui.db.managers import PersonManager, SourceManager
 
 import uuid
 
@@ -8,23 +10,31 @@ def generate_hash():
 # End utilities
 
 class Source( models.Model ):
+    class Meta:
+        app_label = 'f4k_ui'    
     id_source   = models.IntegerField(primary_key=True)
     label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
+    objects = SourceManager()
+
 class Dataset( models.Model ):
+    class Meta:
+        app_label = 'f4k_ui'    
     id_dataset  = models.IntegerField(primary_key=True)
     label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
-class Session( models.Model ): # WHY NOT MERGING DATASET AND SESSION TABLES TOGETHER?
+class Session( models.Model ):
+    class Meta:
+        app_label = 'f4k_ui'    
     id_session  = models.IntegerField(primary_key=True)
     key         = models.CharField( max_length = 32, unique = True, default = generate_hash )
     name        = models.CharField( max_length = 40, null = True )
     dataset     = models.ForeignKey( Dataset, null = True )
     start_time  = models.DateTimeField( null = True, blank = True )
     end_time    = models.DateTimeField( null = True, blank = True )
-    
+
 class Person( models.Model ):
     id_person      = models.IntegerField(primary_key=True)
     sdk_name       = models.CharField( max_length = 30 )
@@ -99,9 +109,17 @@ class Person( models.Model ):
         #self.color_2        = average_fn( person_detections, "bbb", count, ddd )
         #self.color_3        = average_fn( person_detections, "bbb", count, ddd )
 
+    objects = PersonManager()
+
+    class Meta:
+        app_label = 'f4k_ui'    
+
 class Person_img( models.Model ):
+    class Meta:
+        app_label = 'f4k_ui'    
     id_img          = models.IntegerField(primary_key=True)
     id_person       = models.ForeignKey( Person, null = True )
+    #id_source       = models.ForeignKey( Source )
     timestamp       = models.DateTimeField( auto_now_add = True )
     frame           = models.PositiveIntegerField( default = 0 ) # Ordinal number. 0 means not part of a sequence (single frame)
     age             = models.PositiveSmallIntegerField()
