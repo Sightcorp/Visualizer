@@ -59,7 +59,7 @@ VizController = function (parentElement, scale, params) {
     var chartTypeMapping = {
         S:'simple',
         T:'stack',
-        B:'box' // WE SHOULD REMOVE THAT OPTION
+        B:'box' 
     };
     function renderMainChart(response, parameters) {
         this.setDataset(response['viz']);

@@ -45,7 +45,7 @@ class VisualizationParameters(Parameters):
     def _parseParameters(self, method):
         chart_type = self._parseSingleValue(method, 't', 'S')
 
-        axis_x = self._parseSingleValue(method, 'x', 'H')
+        axis_x = self._parseSingleValue(method, 'x', 'D')
         axis_y = self._parseSingleValue(method, 'y', 'NP')
         axis_z = self._parseSingleValue(method, 'z', '')
 

@@ -29,7 +29,6 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
             .y(function (d) {
                 return d[1];
             });
-
         stack(dataset);
 
         var allValues = [];
@@ -362,6 +361,7 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
 
         var legendItemWidth;
         var zAxis = parameters['z'].toUpperCase();
+        /*
         if (zAxis == 'S') {
             legendItemWidth = 40;
             var legendItemHeight = 18;
@@ -383,8 +383,10 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
                 })
                 .attr('y', 9)
                 .style('opacity', 0.4);
-        } else if (zAxis == 'C') {
-            legendItemWidth = 58;
+        } else */
+        if (zAxis == 'H') {
+            legendItemWidth = 38;
+            startX = dataset.length * legendItemWidth - legendItemWidth/2;
             legendGroup.selectAll("text.item")
                 .data(dataset)
                 .enter()
@@ -394,14 +396,72 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
                     return 'Item-Legend-' + d.key;
                 })
                 .text(function (d) {
-                    return 'Camera ' + d.key;
+                    return d.key+':00';
                 })
                 .attr('dx', function (d, i) {
-                    return chart_size.width - controlsMargins.right - (legendItemWidth / 2) - (legendItemWidth * i);
+                    return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;
+                })
+                .attr('dy', 20)
+                .style('opacity', 0.4);
+        } else if (zAxis == 'D') {
+            legendItemWidth = 58;
+            startX = dataset.length * legendItemWidth - legendItemWidth/2;
+            legendGroup.selectAll("text.item")
+                .data(dataset)
+                .enter()
+                .append('text')
+                .attr('class', 'item')
+                .attr('id', function (d) {
+                    return 'Item-Legend-' + d.key;
+                })
+                .text(function (d) {
+                    return 'Feb. '+d.key;
+                })
+                .attr('dx', function (d, i) {
+                    return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;
+                })
+                .attr('dy', 20)
+                .style('opacity', 0.4);
+        } else if (zAxis == 'C') {
+            legendItemWidth = 58;
+            startX = dataset.length * legendItemWidth - legendItemWidth/2;
+            legendGroup.selectAll("text.item")
+                .data(dataset)
+                .enter()
+                .append('text')
+                .attr('class', 'item')
+                .attr('id', function (d) {
+                    return 'Item-Legend-' + d.key;
+                })
+                .text(function (d) {
+                    return 'Camera '+d.key;
+                })
+                .attr('dx', function (d, i) {
+                    return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;
+                })
+                .attr('dy', 20)
+                .style('opacity', 0.4);
+        } else {
+            legendItemWidth = 20;
+            startX = dataset.length * legendItemWidth - legendItemWidth/2;
+            legendGroup.selectAll("text.item")
+                .data(dataset)
+                .enter()
+                .append('text')
+                .attr('class', 'item')
+                .attr('id', function (d) {
+                    return 'Item-Legend-' + d.key;
+                })
+                .text(function (d) {
+                    return d.key;
+                })
+                .attr('dx', function (d, i) {
+                    return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;
                 })
                 .attr('dy', 20)
                 .style('opacity', 0.4);
         }
+        var startX = dataset.length * legendItemWidth - legendItemWidth/2;
         legendGroup.selectAll("circle.elem")
             .data(dataset)
             .enter()
@@ -409,7 +469,7 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
             .attr('class', 'elem')
             .attr('r', 8)
             .attr('cx', function (d, i) {
-                return chart_size.width - controlsMargins.right - (legendItemWidth / 2) - (legendItemWidth * i);
+                return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;
             })
             .attr('cy', 0)
             .attr('id', function (d) {
@@ -424,7 +484,7 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
             .append("text")
             .attr('class', 'elem')
             .attr("dx", function (d, i) {
-                return chart_size.width - controlsMargins.right - (legendItemWidth / 2) - (legendItemWidth * i);
+                return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;
             })
             .attr('dy', 4)
             .text(function(d) {

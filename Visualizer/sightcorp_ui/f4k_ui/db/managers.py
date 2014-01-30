@@ -10,22 +10,44 @@ class PersonManager(models.Manager):
         rows = self.all()
         return rows
 
-    def person_count(self, groupby, parameters):
+    def person_count(self, groupby, parameters, zname=None, templayer=None):
         groupby = groupby.lower()
-        print('groupby=')
-        print(groupby)
         cameras = parameters.filter_cameras()
+        if zname=='c':
+            cameras = [templayer]
         days = parameters.filter_days()
+        if zname=='d':
+            days = [templayer]
         hours = parameters.filter_hours()
+        if zname=='h':
+            hours = [templayer]
         moods = parameters.filter_moods()
+        if zname=='mood':
+            moods = [templayer]
         genders = parameters.filter_genders()
+        if zname=='gen':
+            genders = [templayer]
         ages = parameters.filter_ages()
+        if zname=='age':
+            ages = [templayer]
         happys = parameters.filter_happys()
+        if zname=='hap':
+            happys = [templayer]
         disgusteds = parameters.filter_disgusteds()
+        if zname=='dis':
+            disgusteds = [templayer]
         angrys = parameters.filter_angrys()
+        if zname=='ang':
+            angrys = [templayer]
         surpriseds = parameters.filter_surpriseds()
+        if zname=='sur':
+            surpriseds = [templayer]
         afraids = parameters.filter_afraids()
+        if zname=='afr':
+            afraids = [templayer]
         sads = parameters.filter_sads()
+        if zname=='sad':
+            sads = [templayer]
 
         where = []
 
@@ -236,7 +258,10 @@ class PersonManager(models.Manager):
         if groupby in ['d', 'h', 'c', 'mood', 'mood_filter', 'gen', 'gen_filter', 'age', 'age_filter', 'hap', 'hap_filter', 'dis', 'dis_filter', 'ang', 'ang_filter', 'sur', 'sur_filter', 'afr', 'afr_filter', 'sad', 'sad_filter']:
             res = [[r[0], r[1]] for r in res]
         else:
-            res = res[0]
+            res = [[str(r[0]), r[1]] for r in res]
+            res.sort(key=operator.itemgetter(0))
+        #else:
+        #    res = res[0]
 
         if settings.QUERY_RESULT_ENABLED:
             logging.info('[PersonManager] person_count results: ' + str(res))

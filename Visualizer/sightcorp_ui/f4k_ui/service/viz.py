@@ -18,7 +18,6 @@ class VizService:
         if t == 's':
             data = self.simple(parameters)
         elif t == 't':
-
             if z == "c":
                 data = self.stacked_cameras(parameters)
             if z == "d":
@@ -43,7 +42,7 @@ class VizService:
                 data = self.stacked_afraids(parameters)
             if z == "sad":
                 data = self.stacked_sads(parameters)
-
+            
         if data is None:
             logging.warning('Dimensions t: %s, z: %s is NOT implemented.' % (t, z))
 
@@ -139,6 +138,12 @@ class VizService:
         if y == 'np':
             res = self.angrys_decomposition_raw(parameters)
         return self.fix_missing_x_groupings(res)
+    def stacked_disgusteds(self, parameters):
+        res = None
+        y = parameters.y().lower()
+        if y == 'np':
+            res = self.disgusteds_decomposition_raw(parameters)
+        return self.fix_missing_x_groupings(res)
     def stacked_afraids(self, parameters):
         res = None
         y = parameters.y().lower()
@@ -152,150 +157,185 @@ class VizService:
             res = self.sads_decomposition_raw(parameters)
         return self.fix_missing_x_groupings(res)
 
-    ###
+
     def cameras_decomposition_raw(self, parameters):
+        cameras = range(1,4)
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_cameras():
+        for item in cameras:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def days_decomposition_raw(self, parameters):
+        days = range(4,7)
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_days():
+        for item in days:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def hours_decomposition_raw(self, parameters):
+        hours = range(24)
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_hours():
+        for item in hours:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def moods_decomposition_raw(self, parameters):
+        moods = [-100,-90,-80,-70,-60,-50,-40,-30,-20,-10,0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_moods():
+        for item in moods:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def genders_decomposition_raw(self, parameters):
+        genders = [-100,-90,-80,-70,-60,-50,-40,-30,-20,-10,0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_genders():
+        for item in genders:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def ages_decomposition_raw(self, parameters):
+        ages = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_ages():
+        for item in ages:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def happys_decomposition_raw(self, parameters):
+        happys = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_happys():
+        for item in happys:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def disgusteds_decomposition_raw(self, parameters):
+        disgusteds = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_disgusteds():
+        for item in disgusteds:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def angrys_decomposition_raw(self, parameters):
+        angrys = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_angrys():
+        for item in angrys:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            res.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def surpriseds_decomposition_raw(self, parameters):
+        surpriseds = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_surpriseds():
+        for item in surpriseds:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            rres.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def afraids_decomposition_raw(self, parameters):
+        afraids = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_afraids():
+        for item in afraids:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            rres.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
+
     def sads_decomposition_raw(self, parameters):
+        sads = [0,10,20,30,40,50,60,70,80,90,100]
         grouping = self.define_grouping_for_x_axis(parameters)
         res = []
-        for item in parameters.filter_sads():
+        for item in sads:
             counts = [[i, 0] for i in sorted(grouping)]
-            count = Person.objects.person_count(parameters.x(), parameters)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            count = Person.objects.person_count(parameters.x(), parameters, parameters.z().lower(), item)
             counts = util.add_stacked_counts(count, counts)
-            layerRes = {'values': counts}
-            key = item
-            layerRes.update({'key': key})
-            rres.append(layerRes)
+            LayerRes = {'values': counts}
+            LayerRes.update({'key': str(item)})
+            res.append(LayerRes)
         return res
 
     def define_grouping_for_x_axis(self, parameters):
