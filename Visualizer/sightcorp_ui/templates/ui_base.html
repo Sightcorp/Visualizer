@@ -66,8 +66,8 @@
         <div class="topbox">
             {% if user.is_authenticated %}
                 <span>{% trans "Hello " %}{{ user.username }}!</span>
-                <span><a href="{% url auth_logout %}" >{% trans "Logout" %}</a></span>
-                <span><a href="{% url auth_password_change %}">{% trans "Password" %}</a></span>
+                <span><a href="{% url "auth_logout" %}" >{% trans "Logout" %}</a></span>
+                <span><a href="{% url "auth_password_change" %}">{% trans "Password" %}</a></span>
             {% endif %}
             <span><a href ="http://www.cwi.nl/" target="_blank"><img class="cwi_logo" alt="CWI logo" src="{% static "images/1b_CWI_LogoPMS193.png" %}"/></a></span>
             <!--span>
@@ -76,12 +76,12 @@
         </div>
 
         {% block zonea %}
-            {% url f4k_ui.views.videos as video_url %}
-            {% url f4k_ui.views.vidana as vidana_url %}
-            {% url f4k_ui.views.rawdata as rawdata_url %}
-            {% url f4k_ui.views.visualization as vis_url %}
-            {% url f4k_ui.views.report as report_url %}
-            {% url f4k_ui.views.home as home_url %}
+            {% url "f4k_ui.views.videos" as video_url %}
+            {% url "f4k_ui.views.vidana" as vidana_url %}
+            {% url "f4k_ui.views.rawdata" as rawdata_url %}
+            {% url "f4k_ui.views.visualization" as vis_url %}
+            {% url "f4k_ui.views.report" as report_url %}
+            {% url "f4k_ui.views.home" as home_url %}
             <a class="home zonea_tab" href="{{ home_url }}">{% trans "Home" %}</a>
             <div class="tabs{{active.vid}}"><a href="{{ video_url }}" class="videotab zonea_tab">{% trans "Video" %}</a></div>
             <!--div class="tabs{{active.vidana}}"><a href="{{ vidana_url }}" class="vidanatab zonea_tab">{% trans "Video Analysis" %}</a></div-->

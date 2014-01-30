@@ -15,7 +15,7 @@ const std::string Client::KStopSessionURL  = "/stop_session/";
 std::string getColorString( const std::vector<int> & color )
 {
   std::stringstream result;
-  result << "#" << std::hex <<
+  result << std::hex <<
       std::setw( 2 ) << std::setfill( '0' ) << color[0] <<
       std::setw( 2 ) << std::setfill( '0' ) << color[1] <<
       std::setw( 2 ) << std::setfill( '0' ) << color[2];
@@ -55,8 +55,8 @@ bool parseGenericResponse( const std::string &          jsonText,
   if( code != 0 )
   {
     std::string tmpDescription;
-    if( getJsonParam( jsonMembers, "code", tmpDescription ) )
-      std::cerr << "Server error description : " << tmpDescriprion << std::endl;
+    if( getJsonParam( jsonMembers, "description", tmpDescription ) )
+      std::cerr << "Server error description : " << tmpDescription << std::endl;
   }
   return code == 0;
 }
@@ -160,8 +160,8 @@ bool Client::sendPeople( std::vector<Person> &people, int frameNumber )
     }
     sendPersonRequest[ "sdk_name" ]       = tmpID;
     sendPersonRequest[ "age" ]            = Util::getStringFromValue( person_it->getAge() );
-    sendPersonRequest[ "gender" ]         = Util::getStringFromValue( person_it->getGender() );
-    sendPersonRequest[ "mood" ]           = Util::getStringFromValue( person_it->getMood() );
+    sendPersonRequest[ "gender" ]         = Util::getStringFromValue( static_cast<int>( person_it->getGender() * 100.0f ) );
+    sendPersonRequest[ "mood" ]           = Util::getStringFromValue( static_cast<int>( person_it->getMood() * 100.0f ) );
     tmpFacePosition = person_it->getFaceRect();
     sendPersonRequest[ "facePosition_x" ] = Util::getStringFromValue( tmpFacePosition.x );
     sendPersonRequest[ "facePosition_y" ] = Util::getStringFromValue( tmpFacePosition.y );
@@ -179,12 +179,12 @@ bool Client::sendPeople( std::vector<Person> &people, int frameNumber )
     sendPersonRequest[ "attention_span" ] = Util::getStringFromValue( person_it->getAttentionSpan() );
     tmpEmotions = person_it->getEmotions();
     sendPersonRequest[ "neutral" ]        = "0";
-    sendPersonRequest[ "happy" ]          = Util::getStringFromValue( tmpEmotions[0] );
-    sendPersonRequest[ "surprised" ]      = Util::getStringFromValue( tmpEmotions[1] );
-    sendPersonRequest[ "angry" ]          = Util::getStringFromValue( tmpEmotions[2] );
-    sendPersonRequest[ "disgusted" ]      = Util::getStringFromValue( tmpEmotions[3] );
-    sendPersonRequest[ "afraid" ]         = Util::getStringFromValue( tmpEmotions[4] );
-    sendPersonRequest[ "sad" ]            = Util::getStringFromValue( tmpEmotions[5] );
+    sendPersonRequest[ "happy" ]          = Util::getStringFromValue( static_cast<int>( tmpEmotions[0] * 100.0f ) );
+    sendPersonRequest[ "surprised" ]      = Util::getStringFromValue( static_cast<int>( tmpEmotions[1] * 100.0f ) );
+    sendPersonRequest[ "angry" ]          = Util::getStringFromValue( static_cast<int>( tmpEmotions[2] * 100.0f ) );
+    sendPersonRequest[ "disgusted" ]      = Util::getStringFromValue( static_cast<int>( tmpEmotions[3] * 100.0f ) );
+    sendPersonRequest[ "afraid" ]         = Util::getStringFromValue( static_cast<int>( tmpEmotions[4] * 100.0f ) );
+    sendPersonRequest[ "sad" ]            = Util::getStringFromValue( static_cast<int>( tmpEmotions[5] * 100.0f ) );
     tmpClothColors = person_it->getClothingColors();
     if( !tmpClothColors.empty() )
     {

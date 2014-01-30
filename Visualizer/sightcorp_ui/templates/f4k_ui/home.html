@@ -4,12 +4,12 @@
 
 {% block head %}
     <script type="text/javascript">
-        var visualization_url = '{% url f4k_ui.views.visualization %}';
+        var visualization_url = '{% url "f4k_ui.views.visualization" %}';
     </script>
 {% endblock %}
 
 {% block allzone %}
-   {% url f4k_ui.views.visualization as vis_url %}
+   {% url "f4k_ui.views.visualization" as vis_url %}
     <div id="introContent">
         <div>
             

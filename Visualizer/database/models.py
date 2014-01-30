@@ -12,7 +12,7 @@ def generate_hash():
 class Source( models.Model ):
     class Meta:
         app_label = 'f4k_ui'    
-    id_source   = models.IntegerField(primary_key=True)
+    id_source   = models.AutoField(primary_key=True)
     label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
@@ -21,22 +21,23 @@ class Source( models.Model ):
 class Dataset( models.Model ):
     class Meta:
         app_label = 'f4k_ui'    
-    id_dataset  = models.IntegerField(primary_key=True)
+    id_dataset  = models.AutoField(primary_key=True)
     label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
 class Session( models.Model ):
     class Meta:
         app_label = 'f4k_ui'    
-    id_session  = models.IntegerField(primary_key=True)
+    id_session  = models.AutoField(primary_key=True)
     key         = models.CharField( max_length = 32, unique = True, default = generate_hash )
     name        = models.CharField( max_length = 40, null = True )
     dataset     = models.ForeignKey( Dataset, null = True )
+    id_source   = models.ForeignKey( Source )
     start_time  = models.DateTimeField( null = True, blank = True )
     end_time    = models.DateTimeField( null = True, blank = True )
 
 class Person( models.Model ):
-    id_person      = models.IntegerField(primary_key=True)
+    id_person      = models.AutoField(primary_key=True)
     sdk_name       = models.CharField( max_length = 30 )
     id_source      = models.ForeignKey( Source )
     id_session     = models.ForeignKey( Session )
@@ -74,16 +75,19 @@ class Person( models.Model ):
     def compute_averages( self ):
         person_detections = self.person_img_set.all()
         count = len( person_detections )
-        average_fn = lambda arr, member, count : sum( [ getattr( x, member ) for x in arr ] ) / ( float )( count )
-        std_dev_fn = lambda arr, member, avg, count : ( sum( [ ( getattr( x, member ) - avg )  ** 2 for x in arr ] ) / ( float )( count ) ) ** 0.5
+        if count == 0:
+            return
+
+        average_fn = lambda arr, member, _count : sum( [ getattr( x, member ) for x in arr ] ) / ( float )( _count )
+        std_dev_fn = lambda arr, member, _count, avg : ( sum( [ ( getattr( x, member ) - avg )  ** 2 for x in arr ] ) / ( float )( _count ) ) ** 0.5
 
         self.gender_av      = average_fn( person_detections, "gender", count )
-        self.gender_sd      = average_fn( person_detections, "gender", count, self.gender_av )
+        self.gender_sd      = std_dev_fn( person_detections, "gender", count, self.gender_av )
         self.age_av         = average_fn( person_detections, "age", count )
-        self.age_sd         = average_fn( person_detections, "age", count, self.age_av )
+        self.age_sd         = std_dev_fn( person_detections, "age", count, self.age_av )
 
         self.mood_av        = average_fn( person_detections, "mood", count )
-        self.mood_sd        = average_fn( person_detections, "mood", count, self.mood_av )
+        self.mood_sd        = std_dev_fn( person_detections, "mood", count, self.mood_av )
         #self.gaze_x_av      = average_fn( person_detections, "bbb", count )
         #self.gaze_x_sd      = average_fn( person_detections, "bbb", count, self.gaze_x_av )
         #self.gaze_y_av      = average_fn( person_detections, "bbb", count )
@@ -91,20 +95,21 @@ class Person( models.Model ):
         #self.attention_span = average_fn( person_detections, "bbb", count, ddd )
 
         self.neutral_av     = average_fn( person_detections, "neutral", count )
-        self.neutral_sd     = average_fn( person_detections, "neutral", count, self.neutral_av )
+        self.neutral_sd     = std_dev_fn( person_detections, "neutral", count, self.neutral_av )
         self.happy_av       = average_fn( person_detections, "happy", count )
-        self.happy_sd       = average_fn( person_detections, "happy", count, self.happy_av )
+        self.happy_sd       = std_dev_fn( person_detections, "happy", count, self.happy_av )
         self.surprised_av   = average_fn( person_detections, "surprised", count )
-        self.surprised_sd   = average_fn( person_detections, "surprised", count, self.surprised_av )
+        self.surprised_sd   = std_dev_fn( person_detections, "surprised", count, self.surprised_av )
         self.angry_av       = average_fn( person_detections, "angry", count )
-        self.angry_sd       = average_fn( person_detections, "angry", count, self.angry_av )
+        self.angry_sd       = std_dev_fn( person_detections, "angry", count, self.angry_av )
         self.disgusted_av   = average_fn( person_detections, "disgusted", count )
-        self.disgusted_sd   = average_fn( person_detections, "disgusted", count, self.disgusted_av )
+        self.disgusted_sd   = std_dev_fn( person_detections, "disgusted", count, self.disgusted_av )
         self.afraid_av      = average_fn( person_detections, "afraid", count )
-        self.afraid_sd      = average_fn( person_detections, "afraid", count, self.afraid_av )
+        self.afraid_sd      = std_dev_fn( person_detections, "afraid", count, self.afraid_av )
         self.sad_av         = average_fn( person_detections, "sad", count )
-        self.sad_sd         = average_fn( person_detections, "sad", count, self.sad_av )
+        self.sad_sd         = std_dev_fn( person_detections, "sad", count, self.sad_av )
 
+        self.save()
         #self.color_1        = average_fn( person_detections, "bbb", count, ddd )
         #self.color_2        = average_fn( person_detections, "bbb", count, ddd )
         #self.color_3        = average_fn( person_detections, "bbb", count, ddd )
@@ -117,7 +122,7 @@ class Person( models.Model ):
 class Person_img( models.Model ):
     class Meta:
         app_label = 'f4k_ui'    
-    id_img          = models.IntegerField(primary_key=True)
+    id_img          = models.AutoField(primary_key=True)
     id_person       = models.ForeignKey( Person, null = True )
     #id_source       = models.ForeignKey( Source )
     timestamp       = models.DateTimeField( auto_now_add = True )
@@ -129,13 +134,13 @@ class Person_img( models.Model ):
     facePosition_y  = models.SmallIntegerField()
     facePosition_w  = models.SmallIntegerField()
     facePosition_h  = models.SmallIntegerField()
-    headYaw         = models.DecimalField( max_digits = 8, decimal_places = 6 )
-    headPitch       = models.DecimalField( max_digits = 8, decimal_places = 6 )
+    headYaw         = models.FloatField()
+    headPitch       = models.FloatField()
     rightEye_x      = models.SmallIntegerField()
     rightEye_y      = models.SmallIntegerField()
     leftEye_x       = models.SmallIntegerField()
     leftEye_y       = models.SmallIntegerField()
-    head_roll       = models.DecimalField( max_digits = 8, decimal_places = 6 )
+    head_roll       = models.FloatField()
     attention_span  = models.IntegerField( null = True )
     neutral         = models.PositiveSmallIntegerField()
     happy           = models.PositiveSmallIntegerField()
