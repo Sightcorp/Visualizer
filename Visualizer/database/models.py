@@ -1,6 +1,6 @@
 from django.db import models
 #from f4k_ui.db.managers import SummaryCameraManager, CamerasManager, SpeciesManager, VideoManager, UserQueryManager
-from f4k_ui.db.managers import PersonManager, SourceManager
+#from f4k_ui.db.managers import PersonManager, SourceManager
 
 import uuid
 
@@ -10,24 +10,24 @@ def generate_hash():
 # End utilities
 
 class Source( models.Model ):
-    class Meta:
-        app_label = 'f4k_ui'    
+#    class Meta:
+#        app_label = 'f4k_ui'    
     id_source   = models.AutoField(primary_key=True)
     label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
-    objects = SourceManager()
+#    objects = SourceManager()
 
 class Dataset( models.Model ):
-    class Meta:
-        app_label = 'f4k_ui'    
+#    class Meta:
+#        app_label = 'f4k_ui'    
     id_dataset  = models.AutoField(primary_key=True)
     label       = models.CharField( max_length = 80, unique = True )
     description = models.TextField( null = True, blank = True )
 
 class Session( models.Model ):
-    class Meta:
-        app_label = 'f4k_ui'    
+#    class Meta:
+#        app_label = 'f4k_ui'    
     id_session  = models.AutoField(primary_key=True)
     key         = models.CharField( max_length = 32, unique = True, default = generate_hash )
     name        = models.CharField( max_length = 40, null = True )
@@ -114,14 +114,14 @@ class Person( models.Model ):
         #self.color_2        = average_fn( person_detections, "bbb", count, ddd )
         #self.color_3        = average_fn( person_detections, "bbb", count, ddd )
 
-    objects = PersonManager()
+#    objects = PersonManager()
 
-    class Meta:
-        app_label = 'f4k_ui'    
+#    class Meta:
+#        app_label = 'f4k_ui'    
 
 class Person_img( models.Model ):
-    class Meta:
-        app_label = 'f4k_ui'    
+#    class Meta:
+#        app_label = 'f4k_ui'    
     id_img          = models.AutoField(primary_key=True)
     id_person       = models.ForeignKey( Person, null = True )
     #id_source       = models.ForeignKey( Source )

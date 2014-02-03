@@ -1,6 +1,8 @@
 #include <crowdsight.h>
 #include <util/connection.h>
 
+#include <queue>
+
 class Client
 {
 public:
@@ -18,10 +20,14 @@ private:
   bool parseSendPerson(   const std::string & response );
   bool parseStopSession(  const std::string & response );
 
+  bool checkAsyncResponses();
+
   // Private Members
   Connection * mConnection;
   std::string  mSessionKey;
   bool         mSessionStarted;
+
+  std::queue<Connection::Response *> serverResponses;
 
   static const std::string KServerURL;
   static const std::string KStartSessionURL;

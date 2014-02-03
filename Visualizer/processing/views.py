@@ -110,6 +110,7 @@ def trigger_processing( request ):
   open_sessions = Session.objects.filter( end_time = None )
   for session in open_sessions:
     for p in session.person_set.all():
-      backgound_processing.delay( p )
+      p.compute_averages()
+      #backgound_processing.delay( p )
 
   return HttpResponse( simplejson.dumps( json_response, indent = 2 ), mimetype = "application/json" )

@@ -4,7 +4,7 @@
 {% block content %}
 <div class="account"> 
 {% trans "Thanks you!  Goodbye!" %}
-<a href="{% url auth_login %}">{% trans "Back to log in" %}</a>
+<a href="{% url "auth_login" %}">{% trans "Back to log in" %}</a>
 </div>
 
 {% endblock %}

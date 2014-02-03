@@ -218,7 +218,7 @@ class PersonManager(models.Manager):
 
 
         if inner_unit and outer_unit:
-            qry = 'SELECT {inner_unit}, COUNT(id_person) FROM Person {where} GROUP BY {outer_unit} ORDER BY {outer_unit}'\
+            qry = 'SELECT {inner_unit}, COUNT(id_person) FROM CSVisualizer.database_person {where} GROUP BY {outer_unit} ORDER BY {outer_unit}'\
                   ''.format(
                 inner_unit=inner_unit,
                 #tblname=tblname,
@@ -227,7 +227,7 @@ class PersonManager(models.Manager):
             )
             print(qry)
         else:
-            qry = 'SELECT COUNT(id_person) FROM Person {where}'.format(where=where)
+            qry = 'SELECT COUNT(id_person) FROM CSVisualizer.database_person {where}'.format(where=where)
 
 
         cursor = connection.cursor()

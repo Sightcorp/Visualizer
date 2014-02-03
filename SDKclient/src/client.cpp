@@ -77,6 +77,14 @@ Client::~Client()
 {
   stopSession();
   delete mConnection;
+
+  // Clean up responses
+  while( !serverResponses.empty() )
+  {
+    Connection::Response * response = serverResponses.front();
+    serverResponses.pop();
+    delete response;
+  }
 }
 
 bool Client::startSession( const std::string & cameraName )
@@ -135,7 +143,6 @@ bool Client::stopSession()
 
 bool Client::sendPeople( std::vector<Person> &people, int frameNumber )
 {
-  Connection::Response serverResponse;
   Connection::TRequest sendPersonRequest;
   sendPersonRequest[ "session_key" ] = mSessionKey;
   sendPersonRequest[ "frame" ]       = Util::getStringFromValue( frameNumber );
@@ -193,18 +200,25 @@ bool Client::sendPeople( std::vector<Person> &people, int frameNumber )
       sendPersonRequest[ "ClothesColors_1" ] = getColorString( tmpClothColors[2] );
     }
 
+    Connection::Response * serverResponse = new Connection::Response();
     bool isConnected = mConnection->request( KServerURL + KSendPersonURL,
                                              sendPersonRequest,
-                                             serverResponse );
+                                             *serverResponse,
+                                             false );
     if( isConnected )
     {
-      if( !serverResponse.isReady() || !serverResponse.isOk() )
-      {
-        std::cerr << "Could not send person analysis" << std::endl;
-        allSent = false;
-      }
-  
-      allSent &= parseSendPerson( serverResponse.rawResponse );
+      // Save non-blocking response
+      serverResponses.push( serverResponse );
+
+//      if( !serverResponse.isReady() || !serverResponse.isOk() )
+//      {
+//        std::cerr << "Could not send person analysis" << std::endl;
+//        allSent = false;
+//      }
+//  
+//      allSent &= parseSendPerson( serverResponse.rawResponse );
+        mConnection->receive( NULL, false );
+        allSent &= checkAsyncResponses();
     }
     else
     {
@@ -250,3 +264,40 @@ bool Client::parseStopSession( const std::string & response )
   return true;
 }
 
+bool Client::checkAsyncResponses()
+{
+  bool serverSaysStop = false;
+
+  // Check if any responses are ready
+  while( !serverResponses.empty() && serverResponses.front()->isReady() )
+  {
+    // Remove completed response from stack
+    Connection::Response * response = serverResponses.front();
+    serverResponses.pop();
+
+    if( response->isOk() ) // server response received
+    {
+      //Log::D() << response->rawResponse << std::endl;
+      serverSaysStop = !parseSendPerson( response->rawResponse ); // parse response
+    }
+    else // server response lost (ie timed out or so)
+    {
+      // Set error but continue.
+      // mConnection will report connection as lost after appropriate amount of
+      // consecutive failed responses.
+      //mDescription = mConnection->getErrorDescription( *response );
+      //std::cerr << "Could not connect : " << mConnection->getErrorDescription( *response ) << std::endl;
+    }
+
+    // Clean up response
+    delete response;
+
+    // Fail if negative server response received
+    if( serverSaysStop )
+    {
+      return false;
+    }
+  }
+
+  return true;
+}

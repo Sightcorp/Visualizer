@@ -5,7 +5,7 @@
     <div class="account" >
 
         {% if show_registration %}
-            <a href="{% url registration_register %}"><strong>{% trans "Sign up here!" %}</strong></a><br/>
+            <a href="{% url "registration_register" %}"><strong>{% trans "Sign up here!" %}</strong></a><br/>
             <p>or</p>
             <p>Login if you already have an account:</p>
         {% else %}
@@ -19,7 +19,7 @@
         </form>
 
         {% if show_registration %}
-            <p>{% trans "Forget password" %}? <a href="{% url auth_password_reset %}">{% trans "Reset it" %}</a>!</p>
+            <p>{% trans "Forget password" %}? <a href="{% url "auth_password_reset" %}">{% trans "Reset it" %}</a>!</p>
         {% endif %}
     </div>
 

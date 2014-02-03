@@ -4,7 +4,7 @@
 
 {% block head %}
     <script type="text/javascript">
-        var visualization_url = '{% url f4k_ui.views.visualization %}';
+        var visualization_url = '{% url "f4k_ui.views.visualization" %}';
         var user_report = '{{ user_report|escapejs }}';
         var user_report_file = '{{ user_report_file|escapejs }}';
         var viz_data_url = '{{ viz_data_url|escapejs }}';

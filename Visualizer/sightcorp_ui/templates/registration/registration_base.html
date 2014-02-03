@@ -36,8 +36,8 @@
         <div class="topbox">
             {% if user.is_authenticated %}
                 <span>{% trans "Hello " %}{{ user.username }}!</span>
-                <span><a href="{% url auth_logout %}" >{% trans "Logout" %}</a></span>
-                <span><a href="{% url auth_password_change %}">{% trans "Password" %}</a></span>
+                <span><a href="{% url "auth_logout" %}" >{% trans "Logout" %}</a></span>
+                <span><a href="{% url "auth_password_change" %}">{% trans "Password" %}</a></span>
                 <!--a href="{% url auth_password_change %}">{% trans "Change password" %}</a-->
                 <!--img class="cwi_logo" alt="labeling" src="{% static "images/1b_CWI_LogoPMS193.png" %}" /-->
             {% endif %}
