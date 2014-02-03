@@ -385,7 +385,7 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
                 .style('opacity', 0.4);
         } else */
         if (zAxis == 'H') {
-            legendItemWidth = 38;
+            legendItemWidth = 30;
             startX = dataset.length * legendItemWidth - legendItemWidth/2;
             legendGroup.selectAll("text.item")
                 .data(dataset)
@@ -396,7 +396,7 @@ function StackChart(chart, chart_size, transitionTimeout, controller) {
                     return 'Item-Legend-' + d.key;
                 })
                 .text(function (d) {
-                    return d.key+':00';
+                    return d.key+'h';
                 })
                 .attr('dx', function (d, i) {
                     return chart_size.width - controlsMargins.right - startX + i*legendItemWidth;

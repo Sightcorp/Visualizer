@@ -55,9 +55,6 @@ function bar_chart(filterId, data, legend, msg) {
 
     var label_margin = 2;
     var label_height = 32;
-    if (filterId == 'f_so' || filterId == 'f_vt') {
-        label_height = 60;
-    }
 
     //to make clickable area bigger we would also create large bars that do not show the amount like small_bars
     var large_bars = chart.append("g").attr("transform", "translate(50," + label_margin + ")");
@@ -92,7 +89,14 @@ function bar_chart(filterId, data, legend, msg) {
     small_bars.selectAll("rect.bar").data(data).enter()
         .append("rect")
         .attr("x", function (d) {
-            return x(d[0]) + (0.25 * x.rangeBand());
+            if (filterId == 'f_c' || filterId == 'f_d' || filterId == 'f_h'){
+                return x(d[0]) + (0.25 * x.rangeBand()) + 3;
+            } else if (filterId == 'f_mood' || filterId == 'f_gen'){
+                return x(d[0]) + (0.25 * x.rangeBand());// - 3;
+            }
+            else {
+                return x(d[0]) + (0.25 * x.rangeBand());// - 10;
+            }
         })
         .attr("y", function (d) {
             return y(d[1]);
@@ -115,7 +119,26 @@ function bar_chart(filterId, data, legend, msg) {
 
     large_bars.selectAll("rect.surr_box").data(data).enter()
         .append("rect")
-        .attr("x", x)
+        //.attr("x", x)
+        .attr("x", function (d) {
+            if(d[0] != 'All'){
+                if(filterId == 'f_c' || filterId == 'f_d' || filterId == 'f_h'){
+                    return x(d[0]) + (0.25 * x.rangeBand());
+                } else if(filterId == 'f_mood' || filterId == 'f_gen'){
+                    return x(d[0]) + (0.25 * x.rangeBand()) - 4;
+                } else {
+                    return x(d[0]) + (0.25 * x.rangeBand()) - 5;
+                }
+            } else {
+                if(filterId == 'f_c' || filterId == 'f_d' || filterId == 'f_h'){
+                    return x(d[0]) + (0.25 * x.rangeBand());
+                } else if(filterId == 'f_mood' || filterId == 'f_gen'){
+                    return x(d[0]) + (0.25 * x.rangeBand()) - 10;
+                } else {
+                    return x(d[0]) + (0.25 * x.rangeBand()) - 15;
+                }      
+            }
+        })
         .attr("y", -label_margin)
         .attr("height", function () {
             if (filterId == "f_c") return h + 21;
@@ -236,7 +259,16 @@ function bar_chart(filterId, data, legend, msg) {
             .attr("x", function (d) {
                 return x(d[0]) + x.rangeBand() - (bar_width/4);
             })
-            .attr("y", h + label_margin)
+//            .attr("y", h + label_margin)
+            .attr("y", function(){    
+                if(filterId == 'f_c' || filterId == 'f_d' || filterId == 'f_h'){
+                    return h + label_margin + 3;
+                } else if(filterId == 'f_mood' || filterId == 'f_gen'){
+                    return h + label_margin - 7;
+                } else {
+                    return h + label_margin - 13;
+                }
+            })
             .attr("class", "labels")
             .text(function (d) {
                 if (filterId == 'f_vt' && d[0] != 'All') {

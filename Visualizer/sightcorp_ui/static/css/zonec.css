@@ -53,36 +53,36 @@ div:hover.chart_type {
     padding-left: 35px;
     background: url("../picto/x-axis.png") 5px -2px no-repeat;
     color: #333;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 div:hover.xaxis {
     padding-left: 35px;
     background: url("../picto/x-axis.png") 5px -2px no-repeat;
     color: #333;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 #xaxis {
-    width: 150px;
+    width: 160px;
 }
 
 .yaxis {
     padding-left: 35px;
     background: url("../picto/y-axis.png") 5px -2px no-repeat;
     color: #333;
-    margin-right: 10px;
+    margin-right: 30px;
 }
 
 div:hover.yaxis {
     padding-left: 35px;
     background: url("../picto/y-axis.png") 5px -2px no-repeat;
     color: #333;
-    margin-right: 10px;
+    margin-right: 30px;
 }
 
 #yaxis {
-    width: 245px;
+    width: 155px;
 }
 
 .zaxis {
@@ -108,7 +108,7 @@ div:hover.zaxis {
 }
 
 #zaxis {
-    width: 170px;
+    width: 220px;
 }
 
 #xaxis option:disabled, #yaxis option:disabled, #zaxis option:disabled {

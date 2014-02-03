@@ -63,9 +63,9 @@ class PersonManager(models.Manager):
             for m in moods:
                 if len(testmood) != 17:
                     testmood = testmood + ' or mood_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood) 
 
@@ -74,9 +74,9 @@ class PersonManager(models.Manager):
             for m in genders:
                 if len(testmood) != 19:
                     testmood = testmood + ' or gender_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood) 
 
@@ -85,9 +85,9 @@ class PersonManager(models.Manager):
             for m in ages:
                 if len(testmood) != 16:
                     testmood = testmood + ' or age_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -96,9 +96,9 @@ class PersonManager(models.Manager):
             for m in happys:
                 if len(testmood) != 18:
                     testmood = testmood + ' or happy_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -107,9 +107,9 @@ class PersonManager(models.Manager):
             for m in disgusteds:
                 if len(testmood) != 22:
                     testmood = testmood + ' or disgusted_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -118,9 +118,9 @@ class PersonManager(models.Manager):
             for m in angrys:
                 if len(testmood) != 18:
                     testmood = testmood + ' or angry_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -129,9 +129,9 @@ class PersonManager(models.Manager):
             for m in surpriseds:
                 if len(testmood) != 22:
                     testmood = testmood + ' or surprised_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -140,9 +140,9 @@ class PersonManager(models.Manager):
             for m in afraids:
                 if len(testmood) != 19:
                     testmood = testmood + ' or afraid_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -151,9 +151,9 @@ class PersonManager(models.Manager):
             for m in sads:
                 if len(testmood) != 16:
                     testmood = testmood + ' or sad_av between '
-                testmood = testmood + str(m-5)
+                testmood = testmood + str(m)
                 testmood = testmood + ' and '
-                testmood = testmood + str(m+4.9999999999)
+                testmood = testmood + str(m+9.9999999999)
             testmood = testmood + ')'
             where.append(testmood)
 
@@ -240,7 +240,7 @@ class PersonManager(models.Manager):
 
 
         if inner_unit and outer_unit:
-            qry = 'SELECT {inner_unit}, COUNT(id_person) FROM Person {where} GROUP BY {outer_unit} ORDER BY {outer_unit}'\
+            qry = 'SELECT {inner_unit}, COUNT(id_person) FROM CSVisualizer.database_person {where} GROUP BY {outer_unit} ORDER BY {outer_unit}'\
                   ''.format(
                 inner_unit=inner_unit,
                 #tblname=tblname,
@@ -249,7 +249,7 @@ class PersonManager(models.Manager):
             )
             print(qry)
         else:
-            qry = 'SELECT COUNT(id_person) FROM Person {where}'.format(where=where)
+            qry = 'SELECT COUNT(id_person) FROM CSVisualizer.database_person {where}'.format(where=where)
 
 
         cursor = connection.cursor()

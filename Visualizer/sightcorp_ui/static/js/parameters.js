@@ -85,31 +85,112 @@ function updateFiltersSummary() {
         title += '<div class="title_param_box"> at <span class="title_param_value">Camera ' + parameters['f_c'] + '<div class="cancel_filter" filter-id="f_c"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_mood']) == -1) {
-        title += '<div class="title_param_box"> with <span class="title_param_value">Mood in [' + parameters['f_mood'] + ']<div class="cancel_filter" filter-id="f_mood"></div></span></div>';
+        pval = '';
+        aval = parameters['f_mood'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> with <span class="title_param_value">Mood in ' + pval + '<div class="cancel_filter" filter-id="f_mood"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_age']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Age in [' + parameters['f_age'] + ']<div class="cancel_filter" filter-id="f_age"></div></span></div>';
+        pval = '';
+        aval = parameters['f_age'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Age in ' + pval +'<div class="cancel_filter" filter-id="f_age"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_gen']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Gender being [' + parameters['f_gen'] + ']<div class="cancel_filter" filter-id="f_gen"></div></span></div>';
+        pval = '';
+        aval = parameters['f_gen'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Gender in ' + pval + '<div class="cancel_filter" filter-id="f_gen"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_hap']) == -1) {
-        title += '<div class="title_param_box"> <span class="title_param_value">Happy in [' + parameters['f_hap'] + ']<div class="cancel_filter" filter-id="f_hap"></div></span></div>';
+        pval = '';
+        aval = parameters['f_hap'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> <span class="title_param_value">Happy in ' + pval + '<div class="cancel_filter" filter-id="f_hap"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_dis']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Disgusted in [' + parameters['f_dis'] + ']<div class="cancel_filter" filter-id="f_dis"></div></span></div>';
+        pval = '';
+        aval = parameters['f_dis'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Disgusted in ' + pval + '<div class="cancel_filter" filter-id="f_dis"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_ang']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Angry in [' + parameters['f_ang'] + ']<div class="cancel_filter" filter-id="f_ang"></div></span></div>';
+        pval = '';
+        aval = parameters['f_ang'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Angry in ' + pval + '<div class="cancel_filter" filter-id="f_ang"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_sur']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Surprised in [' + parameters['f_sur'] + ']<div class="cancel_filter" filter-id="f_sur"></div></span></div>';
+        pval = '';
+        aval = parameters['f_sur'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Surprised in ' + pval + '<div class="cancel_filter" filter-id="f_sur"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_afr']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Afraid in [' + parameters['f_afr'] + ']<div class="cancel_filter" filter-id="f_afr"></div></span></div>';
+        pval = '';
+        aval = parameters['f_afr'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Afraid in ' + pval + '<div class="cancel_filter" filter-id="f_afr"></div></span></div>';
     }
     if ($.inArray('all', parameters['f_sad']) == -1) {
-        title += '<div class="title_param_box"> for <span class="title_param_value">Sad in [' + parameters['f_sad'] + ']<div class="cancel_filter" filter-id="f_sad"></div></span></div>';
+        pval = '';
+        aval = parameters['f_sad'];
+        for(i=0; i < aval.length; i++){
+            max = aval[i] + 10;
+            if(i!=0){
+                pval += ', ';
+            }
+            pval += '[' + aval[i] + ',' + max + ']';
+        }
+        title += '<div class="title_param_box"> for <span class="title_param_value">Sad in ' + pval + '<div class="cancel_filter" filter-id="f_sad"></div></span></div>';
     }
     
     title += '</span>';

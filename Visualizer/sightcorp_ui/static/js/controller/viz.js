@@ -93,7 +93,15 @@ VizController = function (parentElement, scale, params) {
         var xLabel = xAxisValues[parameters['x'].toUpperCase()].axis_text;
         var yLabel = yAxisValues[parameters['y'].toUpperCase()].axis_text;
 
-        var xTicks = scales.x.domain()[1] - scales.x.domain()[0] + 1;
+        if(parameters['x'] == 'D' || parameters['x'] == 'C'){
+            var xTicks = 3;
+        }
+        else if(parameters['x'] == 'H' ){
+            var xTicks = scales.x.domain()[1] - scales.x.domain()[0] + 1;
+        }
+        else{
+            var xTicks = 10;
+        }
         var xAxis = d3.svg.axis().scale(scales.x).orient("bottom").ticks(xTicks);
         var yAxis = d3.svg.axis().scale(scales.y).orient("left");
 
